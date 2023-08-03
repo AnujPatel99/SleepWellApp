@@ -1,9 +1,42 @@
 ﻿@page "/"
 
 <PageTitle>Index</PageTitle>
+<link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
-<h1>Hello, world!</h1>
+<MudContainer Class="mt-16">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">SleepWell Audio Library</MudText>
+    <MudText Align="Align.Center">Welcome to SleepWell.NET, an expansive audio library that provides a variety of sounds to help you fall and stay asleep.</MudText>
+    <MudGrid Class="mt-8">
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudIconButton Icon="@Icons.Material.Filled.LibraryMusic" Color="Color.Primary" Size="Size.Large"></MudIconButton>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1">Rainfall SFX</MudText>
+                        <MudText Typo="Typo.body2">SleepWell Library</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="images/pilars.jpg" Height="250" />
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">This photo was taken in a small village in Istra Croatia.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <audio controls src="/audio/sample.mp3"></audio>
+                    <MudIconButton Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Secondary" />
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        
+        <AudioCard audioImage="images/pilars.jpg" audioID="2" audioTitle="Component Test" audioDesc="Test Description" audioLink = "audio/sample.mp3"> </AudioCard>
+        <AudioCard audioImage="images/pilars.jpg" audioID="3" audioTitle="Component Test" audioDesc="Test Description" audioLink = "audio/sample.mp3"> </AudioCard>
+        <AudioCard audioImage="images/pilars.jpg" audioID="4" audioTitle="Component Test" audioDesc="Test Description" audioLink = "audio/sample.mp3"> </AudioCard>
+        <AudioCard audioImage="images/pilars.jpg" audioID="5" audioTitle="Component Test" audioDesc="Test Description" audioLink = "audio/sample.mp3"> </AudioCard>
+        <AudioCard audioImage="images/pilars.jpg" audioID="6" audioTitle="Component Test" audioDesc="Test Description" audioLink = "audio/sample.mp3"> </AudioCard>
 
-Welcome to your new app. Malik is the best.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+    </MudGrid>
+</MudContainer>

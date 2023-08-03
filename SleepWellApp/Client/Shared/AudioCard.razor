@@ -1,0 +1,44 @@
+﻿<MudItem xs="12" sm="6" md="4">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudIconButton Icon="@Icons.Material.Filled.LibraryMusic" Color="Color.Default" Size="Size.Large"></MudIconButton>
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.body1">@audioTitle</MudText>
+                <MudText Typo="Typo.body2">SleepWell Library</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardMedia Image=@audioImage Height="250" />
+        <MudCardContent>
+            <MudText Typo="Typo.body2">@audioDesc</MudText>
+        </MudCardContent>
+        <MudCardActions>
+            <audio controls src=@audioLink></audio>
+            <MudIconButton Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Secondary" />
+        </MudCardActions>
+    </MudCard>
+</MudItem>
+
+        @code {
+
+    [Parameter]
+    public string audioTitle { get; set; }
+
+    [Parameter]
+    public string audioImage { get; set; }
+
+    [Parameter]
+    public int audioID { get; set; }
+
+    [Parameter]
+    public string audioDesc { get; set; }
+
+    [Parameter]
+    public string audioLink { get; set; }
+
+
+}
