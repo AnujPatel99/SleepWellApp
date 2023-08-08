@@ -10,10 +10,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SleepWellApp.Server.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class SoundBoards
     {
-        // public int User_Id { get; set; }
-      //  public string? FirstName { get; set; }
-       // public string? LastName { get; set; }
+        [Key]
+        public int Sound_Id { get; set; }
+        public string? Genre { get; set; }
+        public string? Artist { get; set; }
+        public string? Title { get; set; }
     }
 }

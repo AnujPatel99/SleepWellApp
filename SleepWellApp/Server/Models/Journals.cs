@@ -10,10 +10,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SleepWellApp.Server.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class Journals
     {
-        // public int User_Id { get; set; }
-      //  public string? FirstName { get; set; }
-       // public string? LastName { get; set; }
+        [Key]
+        public int Journal_Id { get; set; }
+        public string? Journal_Content { get; set; }
     }
 }
