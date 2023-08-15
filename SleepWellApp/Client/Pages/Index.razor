@@ -6,9 +6,13 @@
 <MudContainer Class="mt-16">
     <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">SleepWell Audio Library</MudText>
     <MudText Align="Align.Center">Welcome to SleepWell.NET, an expansive audio library that provides a variety of sounds to help you fall and stay asleep.</MudText>
+    @if (User is not null)
+    {
+        <h1>Hello @User.Id</h1>
+    }
     <MudGrid Class="mt-8">
 
-        <AudioCard audioImage="images/grandma.jpg" audioID="1" audioTitle="Rainforests Sounds" audioDesc="This photo is of the Amazon Rainforest" audioLink="audio/sample.mp3"> </AudioCard>
+        <AudioCard audioImage="images/pilars.jpg" audioID="1" audioTitle="Rainforests Sounds" audioDesc="This photo is of the Amazon Rainforest" audioLink="audio/sample.mp3"> </AudioCard>
         <AudioCard audioImage="images/pilars.jpg" audioID="2" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
         <AudioCard audioImage="images/pilars.jpg" audioID="3" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
         <AudioCard audioImage="images/pilars.jpg" audioID="4" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>

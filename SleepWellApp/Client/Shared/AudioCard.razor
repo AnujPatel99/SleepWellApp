@@ -10,7 +10,7 @@
             </CardHeaderContent>
             <CardHeaderActions>
                 <MudIconButton Icon="@Icons.Material.Filled.DarkMode" OnClick="OpenOverlay" Color="Color.Default" />
-                
+
             </CardHeaderActions>
         </MudCardHeader>
         <MudCardMedia Image=@audioImage Height="250" />
@@ -19,14 +19,14 @@
         </MudCardContent>
         <MudCardActions>
             <audio controls src=@audioLink></audio>
-            <MudToggleIconButton  @bind-Toggled="@Liked" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" Title = "Unliked"
-                                                                ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked"/>
+            <MudToggleIconButton @bind-Toggled="@Liked" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" Title="Unliked"
+                                 ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
         </MudCardActions>
     </MudCard>
 </MudItem>
-<MudOverlay @bind-Visible="isVisible" DarkBackground="true" AutoClose="true"/>
-        @code {
+<MudOverlay @bind-Visible="isVisible" DarkBackground="true" AutoClose="true" />
 
+@code {
     [Parameter]
     public int audioID { get; set; } // ID
     [Parameter]
@@ -37,7 +37,7 @@
     public string? audioDesc { get; set; } // Description
     [Parameter]
     public string? audioLink { get; set; } // Direct link to audio file
-    @code {
+
     public bool Liked { get; set; }
 
     private bool isVisible;
@@ -47,6 +47,4 @@
         isVisible = true;
         StateHasChanged();
     }
-}
-
 }

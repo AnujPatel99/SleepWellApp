@@ -7,7 +7,7 @@
 <AuthorizeView>
     <Authorized>
         <MudAvatar Color="Color.Primary">A</MudAvatar>
-        <a href="authentication/profile">Hello, @context.User.Identity?.Name!</a>
+        <a href="authentication/profile">Hello, @context.User.Identity?.Name!.</a>
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
     </Authorized>
     <NotAuthorized>

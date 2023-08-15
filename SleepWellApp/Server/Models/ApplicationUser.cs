@@ -12,8 +12,9 @@ namespace SleepWellApp.Server.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        // public int User_Id { get; set; }
-      //  public string? FirstName { get; set; }
-       // public string? LastName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public List<SoundBoards>? LikedSound { get; set; } = new List<SoundBoards>();
+        public List<Journals>? Journal { get; set; } = new List<Journals>();
     }
 }
