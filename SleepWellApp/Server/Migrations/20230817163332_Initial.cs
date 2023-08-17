@@ -88,6 +88,20 @@ namespace SleepWellApp.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LikedSound",
+                columns: table => new
+                {
+                    Liked_sound_Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sound_Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LikedSound", x => x.Liked_sound_Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PersistedGrants",
                 columns: table => new
                 {
@@ -105,6 +119,21 @@ namespace SleepWellApp.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SoundBoard",
+                columns: table => new
+                {
+                    Sound_Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Artist = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoundBoard", x => x.Sound_Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,7 +248,7 @@ namespace SleepWellApp.Server.Migrations
                 {
                     Journal_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User_Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Journal_Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -228,47 +257,6 @@ namespace SleepWellApp.Server.Migrations
                     table.PrimaryKey("PK_Journal", x => x.Journal_Id);
                     table.ForeignKey(
                         name: "FK_Journal_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LikedSound",
-                columns: table => new
-                {
-                    Liked_sound_Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Sound_Id = table.Column<int>(type: "int", nullable: false),
-                    User_Id = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LikedSound", x => x.Liked_sound_Id);
-                    table.ForeignKey(
-                        name: "FK_LikedSound_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SoundBoard",
-                columns: table => new
-                {
-                    Sound_Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Artist = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SoundBoard", x => x.Sound_Id);
-                    table.ForeignKey(
-                        name: "FK_SoundBoard_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
@@ -335,11 +323,6 @@ namespace SleepWellApp.Server.Migrations
                 column: "Use");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LikedSound_ApplicationUserId",
-                table: "LikedSound",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_ConsumedTime",
                 table: "PersistedGrants",
                 column: "ConsumedTime");
@@ -358,11 +341,6 @@ namespace SleepWellApp.Server.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SoundBoard_ApplicationUserId",
-                table: "SoundBoard",
-                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
