@@ -1,23 +1,45 @@
 ﻿@page "/"
 
+ 
+
 <PageTitle>Index</PageTitle>
 <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
+ 
+
 <MudContainer Class="mt-16">
-    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">SleepWell Audio Library</MudText>
-    <MudText Align="Align.Center">Welcome to SleepWell.NET, an expansive audio library that provides a variety of sounds to help you fall and stay asleep.</MudText>
+<MudImage Src="images/Logo.jpg" Alt="OurLogo" Elevation="0" Class="rounded-lg"/>
+
+<style>
+    .rounded-lg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50vw; 
+    height: auto;
+    max-height:50vh;
+    width:auto;
+    }
+    </style>
+<MudText Typo="Typo.h3" Align="Align.Center" GutBottom="trutere">Audio Library</MudText>
+<MudText Align="Align.Center">Welcome to SleepWell.NET, an expansive audio library that provides a variety of sounds to help you fall and stay asleep.</MudText>
+
     @if (User is not null)
     {
-        <h1>Hello @User.FirstName</h1>
+<h1>Hello @User.FirstName</h1>
     }
-    <MudGrid Class="mt-8">
+<MudGrid Class="mt-8">
+
+ 
 
         <AudioCard audioImage="images/pilars.jpg" audioID="1" audioTitle="Rainforests Sounds" audioDesc="This photo is of the Amazon Rainforest" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="2" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="3" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="4" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="5" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="6" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
+<AudioCard audioImage="images/pilars.jpg" audioID="2" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
+<AudioCard audioImage="images/pilars.jpg" audioID="3" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
+<AudioCard audioImage="images/pilars.jpg" audioID="4" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
+<AudioCard audioImage="images/pilars.jpg" audioID="5" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
+<AudioCard audioImage="images/pilars.jpg" audioID="6" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
+
+ 
 
     </MudGrid>
 </MudContainer>
