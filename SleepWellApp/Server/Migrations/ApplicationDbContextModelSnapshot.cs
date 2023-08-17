@@ -422,9 +422,6 @@ namespace SleepWellApp.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Sound_Id"), 1L, 1);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Artist")
                         .HasColumnType("nvarchar(max)");
 
@@ -435,8 +432,6 @@ namespace SleepWellApp.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Sound_Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("SoundBoard");
                 });
@@ -499,18 +494,9 @@ namespace SleepWellApp.Server.Migrations
                         .HasForeignKey("ApplicationUserId");
                 });
 
-            modelBuilder.Entity("SleepWellApp.Server.Models.SoundBoards", b =>
-                {
-                    b.HasOne("SleepWellApp.Server.Models.ApplicationUser", null)
-                        .WithMany("LikedSound")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("SleepWellApp.Server.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Journal");
-
-                    b.Navigation("LikedSound");
                 });
 #pragma warning restore 612, 618
         }
