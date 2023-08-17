@@ -382,11 +382,11 @@ namespace SleepWellApp.Server.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("Journal_Content")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("User_Id")
-                        .HasColumnType("int");
 
                     b.HasKey("Journal_Id");
 
@@ -403,18 +403,13 @@ namespace SleepWellApp.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Liked_sound_Id"), 1L, 1);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<int>("Sound_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("User_Id")
-                        .HasColumnType("int");
-
                     b.HasKey("Liked_sound_Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("LikedSound");
                 });
@@ -504,17 +499,10 @@ namespace SleepWellApp.Server.Migrations
                         .HasForeignKey("ApplicationUserId");
                 });
 
-            modelBuilder.Entity("SleepWellApp.Server.Models.LikedSounds", b =>
-                {
-                    b.HasOne("SleepWellApp.Server.Models.ApplicationUser", null)
-                        .WithMany("LikedSound")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("SleepWellApp.Server.Models.SoundBoards", b =>
                 {
                     b.HasOne("SleepWellApp.Server.Models.ApplicationUser", null)
-                        .WithMany("SoundBoard")
+                        .WithMany("LikedSound")
                         .HasForeignKey("ApplicationUserId");
                 });
 
@@ -523,8 +511,6 @@ namespace SleepWellApp.Server.Migrations
                     b.Navigation("Journal");
 
                     b.Navigation("LikedSound");
-
-                    b.Navigation("SoundBoard");
                 });
 #pragma warning restore 612, 618
         }

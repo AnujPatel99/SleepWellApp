@@ -88,6 +88,20 @@ namespace SleepWellApp.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LikedSound",
+                columns: table => new
+                {
+                    Liked_sound_Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sound_Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LikedSound", x => x.Liked_sound_Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PersistedGrants",
                 columns: table => new
                 {
@@ -219,7 +233,7 @@ namespace SleepWellApp.Server.Migrations
                 {
                     Journal_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User_Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Journal_Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -228,26 +242,6 @@ namespace SleepWellApp.Server.Migrations
                     table.PrimaryKey("PK_Journal", x => x.Journal_Id);
                     table.ForeignKey(
                         name: "FK_Journal_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LikedSound",
-                columns: table => new
-                {
-                    Liked_sound_Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Sound_Id = table.Column<int>(type: "int", nullable: false),
-                    User_Id = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LikedSound", x => x.Liked_sound_Id);
-                    table.ForeignKey(
-                        name: "FK_LikedSound_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
@@ -333,11 +327,6 @@ namespace SleepWellApp.Server.Migrations
                 name: "IX_Keys_Use",
                 table: "Keys",
                 column: "Use");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LikedSound_ApplicationUserId",
-                table: "LikedSound",
-                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_ConsumedTime",
