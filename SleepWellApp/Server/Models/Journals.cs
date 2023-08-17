@@ -14,7 +14,7 @@ namespace SleepWellApp.Server.Models
     {
         [Key]
         public int Journal_Id { get; set; }
-        public int User_Id { get; set; }
+        public int Id { get; set; }
         public string? Journal_Content { get; set; }
     }
 }

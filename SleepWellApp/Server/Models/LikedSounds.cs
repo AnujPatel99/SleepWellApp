@@ -15,6 +15,6 @@ namespace SleepWellApp.Server.Models
         [Key]
         public int Liked_sound_Id { get; set; }
         public int Sound_Id { get; set; }
-        public int User_Id { get; set; }
+        public int Id { get; set; }
     }
 }
