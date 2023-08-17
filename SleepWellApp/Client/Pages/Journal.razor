@@ -1,18 +1,33 @@
 ﻿@page "/journal"
 
-<PageTitle>Dream Journal</PageTitle>
+<PageTitle>Journal</PageTitle>
 
-
+<h1> Your Journals</h1>
 <MudGrid Spacing="@spacing" Justify="Justify.Center">
 
     <MudItem>
-        <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="700px">
+        <MudPaper Class="pa-16 ma-2" Square="true" Height="280px" Width="400px">
             <h3>@date</h3>
-            <MudTextField T="string" Counter="500" Lines="5" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="What did you dream about?" Variant="Variant.Text" />
+            <MudTextField T="string" Counter="25" HelperText="What did you dream about?" Lines="2" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="Enter Journal Content" Variant="Variant.Text" />
             <MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary">Save</MudButton>
         </MudPaper>
     </MudItem>
 
+    <MudItem>
+        <MudPaper Class="pa-16 ma-2" Square="true" Height="280px" Width="400px">
+            <h3>@date</h3>
+            <MudTextField T="string" Counter="25" HelperText="What did you dream about?" Lines="2" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="Enter Journal Content" Variant="Variant.Text" />
+            <MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary">Save</MudButton>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem>
+        <MudPaper Class="pa-16 ma-2" Square="true" Height="280px" Width="400px">
+            <h3>@date</h3>
+            <MudTextField T="string" Counter="25" HelperText="What did you dream about?" Lines="2" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="Enter Journal Content" Variant="Variant.Text" />
+            <MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary">Save</MudButton>
+        </MudPaper>
+    </MudItem>
 </MudGrid>
 @code {
     public int spacing { get; set; } = 2;
@@ -20,7 +35,7 @@
 
     private IEnumerable<string> MaxCharacters(string ch)
     {
-        if (!string.IsNullOrEmpty(ch) && 500 < ch?.Length)
-            yield return "Max 500 characters";
+        if (!string.IsNullOrEmpty(ch) && 25 < ch?.Length)
+            yield return "Max 25 characters";
     }
 }
