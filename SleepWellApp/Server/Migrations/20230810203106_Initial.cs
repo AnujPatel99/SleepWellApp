@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SleepWellApp.Server.Migrations
 {
+    //comogjgighi
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
