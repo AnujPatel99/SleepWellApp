@@ -5,6 +5,7 @@ using System.Security.Claims;
 using SleepWellApp.Shared;
 using SleepWellApp.Server.Data;
 using SleepWellApp.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SleepWellApp.Server.Controllers;
 
@@ -38,5 +39,42 @@ public class UserController : Controller
         }
         return Ok(user);
     }
+    [HttpGet]
+    [Authorize(Roles = "admin")]
+    [Route("api/get-users")]
+    public async Task<List<UserDto>> GetUsers()
+    {
+        var users = await (from u in _context.Users
+                           select new UserDto
+                           {
+                               Id = u.Id,
+                               UserName = u.UserName,
+                               FirstName = u.FirstName,
+                               LastName = u.LastName
+                           }).ToListAsync();
+        if (users is not null)
+        {
+            return users;
+        }
+        else
+        {
+            return new List<UserDto>();
+        }
 
+
+    }
+
+    [HttpGet]
+    [Authorize(Roles = "admin")]
+    [Route("api/get-roles/{id}")]
+    public async Task<List<string>> GetRoles(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user is not null)
+        {
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+            return roles.ToList();
+        }
+        else { return new List<string>(); }
+    }
 }
