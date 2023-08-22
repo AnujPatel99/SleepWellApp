@@ -47,7 +47,7 @@ public partial class AudioCard
         try
         {
             Liked = liked_toggle;
-            //audioDesc = audioID.ToString() + " " + User.Id;
+            audioDesc = audioID.ToString() + " " + User.Id;
 
             await Http.PostAsync($"api/audio/{audioID}/like", null);
         } 
