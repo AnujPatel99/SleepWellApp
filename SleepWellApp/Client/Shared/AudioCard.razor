@@ -1,27 +1,55 @@
-﻿<MudItem xs="12" sm="6" md="4">
-    <MudCard>
-        <MudCardHeader>
-            <CardHeaderAvatar>
-                <MudIconButton Icon="@Icons.Material.Filled.LibraryMusic" Color="Color.Default" Size="Size.Large"></MudIconButton>
-            </CardHeaderAvatar>
-            <CardHeaderContent>
-                <MudText Typo="Typo.body1">@audioTitle</MudText>
-                <MudText Typo="Typo.body2">SleepWell Library</MudText>
-            </CardHeaderContent>
-            <CardHeaderActions>
-                <MudIconButton Icon="@Icons.Material.Filled.DarkMode" OnClick="OpenOverlay" Color="Color.Default" />
-
-            </CardHeaderActions>
-        </MudCardHeader>
-        <MudCardMedia Image=@audioImage Height="250" />
-        <MudCardContent>
-            <MudText Typo="Typo.body2">@audioDesc</MudText>
-        </MudCardContent>
-        <MudCardActions>
-            <audio controls src=@audioLink></audio>
-            <MudToggleIconButton Toggled="@Liked" ToggledChanged="ButtonOnClick" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" Title="Unliked"
-                                 ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
-        </MudCardActions>
-    </MudCard>
-</MudItem>
+﻿@if (currentPlayingAudio == audioID || currentPlayingAudio == 0)
+{
+    <MudItem xs="12" sm="6" md="4">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudIconButton Icon="@Icons.Material.Filled.LibraryMusic" Color="Color.Default" OnClick="ShowGrandma" Size="Size.Large"></MudIconButton>
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.body1">@audioTitle</MudText>
+                    <MudText Typo="Typo.body2">SleepWell Library</MudText>
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.DarkMode" OnClick="OpenOverlay" Color="Color.Default" />
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudCardMedia Image=@audioImage Height="250" />
+            <MudCardContent>
+                <MudText Typo="Typo.body2">@audioDesc</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <audio controls src=@audioLink></audio>
+                <MudToggleIconButton Toggled="@Liked" ToggledChanged="ButtonOnClick" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" Title="Unliked"
+                ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    @if (timesTapped > 10)
+    {
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudIconButton Icon="@Icons.Material.Filled.LibraryMusic" Color="Color.Default" Size="Size.Large"></MudIconButton>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1">Grandma</MudText>
+                        <MudText Typo="Typo.body2">Easter Egg</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.DarkMode" OnClick="OpenOverlay" Color="Color.Default" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="images/grandma.jpg" Height="250" />
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">"Grandma has something for you!!!"</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <audio controls src="audio/9mm-pistol-shot-6349.mp3"></audio>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    }
+}
 <MudOverlay @bind-Visible="isVisible" DarkBackground="true" AutoClose="true" />
