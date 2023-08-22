@@ -12,29 +12,38 @@ namespace SleepWellApp.Server.Controllers
     [ApiController]
     public class LikedSoundsController : Controller
     {
-
         private readonly ApplicationDbContext? _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LikedSoundsController(ApplicationDbContext context)
+        public LikedSoundsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
 
         [HttpPost("{audioId}/like")]
         public async Task<IActionResult> LikedSound(int audioID)
         {
+            // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            var audio = await _context.LikedSound.FirstOrDefaultAsync(a => a.Liked_sound_Id == audioID);
-
-            if (audio == null)
+            LikedSounds ls = new LikedSounds
             {
-                return NotFound();
+                Sound_Id = audioID
+            };
+
+            if (user.LikedSound.Exists(LikedSound => ls.Sound_Id == LikedSound.Sound_Id))
+            {
+                user.LikedSound.Remove(ls);
+            } 
+            else
+            {
+                user.LikedSound.Add(ls);
             }
+            _context.SaveChanges();
 
-            var currUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            audio.Id = Convert.ToInt32(currUser);
-
-            await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync(); context.likedsound.exists(audioID)
 
             return Ok();
         }
