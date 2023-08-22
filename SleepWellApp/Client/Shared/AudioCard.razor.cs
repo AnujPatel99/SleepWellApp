@@ -22,9 +22,21 @@ public partial class AudioCard
 
     private bool isVisible;
 
+    public int currentPlayingAudio = 0;
+
+    public int timesTapped = 0;
+
     public void OpenOverlay()
     {
         isVisible = true;
+        currentPlayingAudio = audioID;
+        /*foreach (var card in otherCards)
+        {
+            if (card != null && card.audioID != card.currentPlayingAudio)
+            {
+                card.currentPlayingAudio = -1;
+            }
+        }*/
         StateHasChanged();
     }
 
@@ -56,5 +68,11 @@ public partial class AudioCard
             Console.WriteLine(ex.Message);
         }
 
+    }
+
+    public void ShowGrandma()
+    {
+        timesTapped++;
+        StateHasChanged();
     }
 }
