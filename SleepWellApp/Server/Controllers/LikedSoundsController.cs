@@ -8,6 +8,8 @@ using SleepWellApp.Server.Models;
 
 namespace SleepWellApp.Server.Controllers
 {
+    [Route("api/audio")]
+    [ApiController]
     public class LikedSoundsController : Controller
     {
 
@@ -18,29 +20,22 @@ namespace SleepWellApp.Server.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        [HttpPost("{audioId}/like")]
+        public async Task<IActionResult> LikedSound(int audioID)
         {
-            return View();
-        }
 
-        [HttpGet]
-        [Route("api/User")]
-        public async Task<ActionResult<LikedSounds>> InsertToLikedSounds()
-        {
-            var user = await _context.Users
-                .Select(u => new UserDto
-                {
-                    Id = u.Id,
-                }).FirstOrDefaultAsync(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var audio = await _context.LikedSound.FirstOrDefaultAsync(a => a.Liked_sound_Id == audioID);
 
-            /*var currentAudioId = await _context.SoundBoard
-                .Select
-
-            for (int i = 0; i < product.Count; i++)
+            if (audio == null)
             {
-                _context.LikedSound.Add(product[i]);
+                return NotFound();
             }
-            _context.SaveChanges();*/
+
+            var currUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            audio.Id = Convert.ToInt32(currUser);
+
+            await _context.SaveChangesAsync();
+
             return Ok();
         }
     }

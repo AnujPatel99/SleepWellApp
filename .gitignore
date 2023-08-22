@@ -363,5 +363,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Migrations
-*/SleepWellApp/Server/Migrations
+# Migrations folder
+Migrations/

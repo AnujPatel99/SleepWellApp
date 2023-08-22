@@ -21,7 +21,7 @@ public class UserController : Controller
 
     [HttpGet]
     [Route("api/User")]
-    public async Task<ActionResult<UserDto>> GetUserMovies()
+    public async Task<ActionResult<UserDto>> GetUserInfo()
     {
         var user = await _context.Users
             .Select(u => new UserDto

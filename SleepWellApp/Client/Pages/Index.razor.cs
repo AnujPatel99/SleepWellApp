@@ -10,8 +10,8 @@ public partial class Index
     [Inject]
     public HttpClient Http { get; set; } = new HttpClient();
     [Inject]
-    public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-    public UserDto User = null;
+    public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+    public UserDto? User = null;
     protected override async Task OnInitializedAsync()
     {
         var UserAuth = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
