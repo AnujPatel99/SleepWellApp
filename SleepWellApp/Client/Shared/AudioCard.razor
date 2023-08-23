@@ -1,6 +1,4 @@
-﻿@if (currentPlayingAudio == audioID || currentPlayingAudio == 0)
-{
-    <MudItem xs="12" sm="6" md="4">
+﻿    <MudItem xs="12" sm="6" md="4">
         <MudCard>
             <MudCardHeader>
                 <CardHeaderAvatar>
@@ -19,7 +17,7 @@
                 <MudText Typo="Typo.body2">@audioDesc</MudText>
             </MudCardContent>
             <MudCardActions>
-                <audio controls src=@audioLink></audio>
+                <audio controls loop src=@audioLink></audio>
                 <MudToggleIconButton Toggled="@Liked" ToggledChanged="ButtonOnClick" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" Title="Unliked"
                 ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
             </MudCardActions>
@@ -51,5 +49,4 @@
             </MudCard>
         </MudItem>
     }
-}
 <MudOverlay @bind-Visible="isVisible" DarkBackground="true" AutoClose="true" />

@@ -45,7 +45,9 @@
     <MudGrid Class="mt-8" Justify="Justify.Center">
         @foreach (var card in filteredAudioCards)
         {
+            @if (card.currentPlayingAudio == card.audioID || card.currentPlayingAudio == 0) {
             <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
+        }
         }
     </MudGrid>
 
