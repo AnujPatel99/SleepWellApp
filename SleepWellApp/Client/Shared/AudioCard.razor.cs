@@ -22,17 +22,57 @@ public partial class AudioCard
 
     private bool isVisible;
 
+    public int currentPlayingAudio = 0;
+
+    public int timesTapped = 0;
+
     public void OpenOverlay()
     {
         isVisible = true;
+        currentPlayingAudio = audioID;
+        /*foreach (var card in otherCards)
+        {
+            if (card != null && card.audioID != card.currentPlayingAudio)
+            {
+                card.currentPlayingAudio = -1;
+            }
+        }*/
         StateHasChanged();
     }
 
-    public void ButtonOnClick(bool liked_toggle)
+    [Inject]
+    public HttpClient Http { get; set; } = new HttpClient();
+    [Inject]
+    public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+    public UserDto? User = null;
+    protected override async Task OnInitializedAsync()
     {
-        Liked = liked_toggle;
-        audioDesc = audioID.ToString();
+        var UserAuth = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
+        if (UserAuth is not null && UserAuth.IsAuthenticated)
+        {
+            User = await Http.GetFromJsonAsync<UserDto>("api/User");
+        }
+    }
 
-        //await Http.PostAsync($"api/audio/{audioID} / like", null);
+    public async Task ButtonOnClick(bool liked_toggle)
+    {
+        try
+        {
+            Liked = liked_toggle;
+            audioDesc = audioID.ToString() + " " + User.Id;
+
+            await Http.PostAsync($"api/audio/{audioID}/like", null);
+        } 
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+    }
+
+    public void ShowGrandma()
+    {
+        timesTapped++;
+        StateHasChanged();
     }
 }

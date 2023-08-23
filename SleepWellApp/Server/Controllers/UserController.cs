@@ -5,6 +5,7 @@ using System.Security.Claims;
 using SleepWellApp.Shared;
 using SleepWellApp.Server.Data;
 using SleepWellApp.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SleepWellApp.Server.Controllers;
 
@@ -38,33 +39,42 @@ public class UserController : Controller
         }
         return Ok(user);
     }
-
-
-    [HttpPost]
-    [Route("api/User/SaveJournalEntry")]
-    public async Task<IActionResult> SaveJournalEntry ([FromBody] JournalDto journalDto)
+    [HttpGet]
+    [Authorize(Roles = "admin")]
+    [Route("api/get-users")]
+    public async Task<List<UserDto>> GetUsers()
     {
-        var user = await _userManager.GetUserAsync(User);
-
-        if (user == null)
+        var users = await (from u in _context.Users
+                           select new UserDto
+                           {
+                               Id = u.Id,
+                               UserName = u.UserName,
+                               FirstName = u.FirstName,
+                               LastName = u.LastName
+                           }).ToListAsync();
+        if (users is not null)
         {
-            return NotFound();
-
+            return users;
         }
-        //Creating a new journal entry entity and populate the properties 
-
-        var journalEntry = new JournalEntry
+        else
         {
-            Id = user.Id,
-            Journal_Content = journalDto.JournalContent
-        };
+            return new List<UserDto>();
+        }
 
-        //Adding and saving the journal entries to the database
-       // _context.JournalEntries.Add(journalEntry);
-        user.Journal.Add(journalEntry);
-        await _context.SaveChangesAsync();
 
-        return Ok();
     }
 
+    [HttpGet]
+    [Authorize(Roles = "admin")]
+    [Route("api/get-roles/{id}")]
+    public async Task<List<string>> GetRoles(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user is not null)
+        {
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+            return roles.ToList();
+        }
+        else { return new List<string>(); }
+    }
 }

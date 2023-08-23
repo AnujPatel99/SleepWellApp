@@ -2,13 +2,13 @@
 
 
 
-<PageTitle>Index</PageTitle>
+<PageTitle>SleepWell.NET</PageTitle>
 <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
 
 
-<MudContainer Class="mt-16">
-    <MudImage Src="images/Logo.png" Alt="OurLogo" Elevation="0" Class="rounded-lg" />
+<MudContainer>
+    <MudImage Src="images/Logo.png" Alt="OurLogo" Elevation="0" Class="rounded-lg" style="padding-top: 0px" />
 
     <style>
         .rounded-lg {
@@ -20,6 +20,11 @@
             max-height: 50vh;
             width: auto;
         }
+
+        .mud-grid {
+            justify-content: center;
+            align-items: center;
+        }
     </style>
     <MudText Typo="Typo.h3" Align="Align.Center" GutBottom="trutere">Audio Library</MudText>
     <MudText Align="Align.Center">Welcome to SleepWell.NET, an expansive audio library that provides a variety of sounds to help you fall and stay asleep.</MudText>
@@ -28,12 +33,22 @@
     {
         <h1>Hello @User.FirstName</h1>
     }
-    <MudGrid Class="mt-8">
-        <AudioCard audioImage="images/pilars.jpg" audioID="1" audioTitle="Rainforests Sounds" audioDesc="This photo is of the Amazon Rainforest" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="2" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="3" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="4" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="5" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
-        <AudioCard audioImage="images/pilars.jpg" audioID="6" audioTitle="Component Test" audioDesc="Test Description" audioLink="audio/sample.mp3"> </AudioCard>
+    @code {
+        List<AudioCard> audioCards = new List<AudioCard>
+        {
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 1, audioTitle = "Rainforests Sounds", audioDesc = "This photo is of the Amazon Rainforest", audioLink = "audio/sample.mp3" },
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 2, audioTitle = "Component Test", audioDesc = "Test Description", audioLink = "audio/sample.mp3" },
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 3, audioTitle = "Component Test", audioDesc = "Test Description", audioLink = "audio/sample.mp3" },
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 4, audioTitle = "Component Test", audioDesc = "Test Description", audioLink = "audio/sample.mp3" },
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 5, audioTitle = "Component Test", audioDesc = "Test Description", audioLink = "audio/sample.mp3" },
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 6, audioTitle = "Component Test", audioDesc = "Test Description", audioLink = "audio/sample.mp3" }
+        };
+    }
+    <MudGrid Class="mt-8" Justify="Justify.Center">
+        @foreach (var card in audioCards)
+        {
+            <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
+        }
     </MudGrid>
+
 </MudContainer>
