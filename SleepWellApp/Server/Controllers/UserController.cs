@@ -77,4 +77,35 @@ public class UserController : Controller
         }
         else { return new List<string>(); }
     }
+
+    //Journaling Methods Impplemented
+    [HttpPost]
+    [Route("api/User/SaveJournalEntry")]
+    public async Task<IActionResult> SaveJournalEntry([FromBody] JournalDto journalDto)
+    {
+        var user = await _userManager.GetUserAsync(User);
+
+        if (user == null)
+        {
+            return NotFound();
+
+        }
+        //Creating a new journal entry entity and populate the properties 
+
+        var journalEntry = new JournalEntry
+        {
+            Id = user.Id,
+            Journal_Content = journalDto.JournalContent
+        };
+
+        //Adding and saving the journal entries to the database
+        // _context.JournalEntries.Add(journalEntry);
+        user.Journal.Add(journalEntry);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+
 }
+
+
