@@ -14,7 +14,7 @@ namespace SleepWellApp.Server.Models
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public List<Journals>? Journal { get; set; } = new List<Journals>();
+        public List<JournalEntry>? Journal { get; set; } = new List<JournalEntry>();
         public List<LikedSounds>? LikedSound { get; set; } = new List<LikedSounds>();
     }
 }

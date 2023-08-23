@@ -9,7 +9,7 @@ namespace SleepWellApp.Server.Data
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
 
-        public DbSet<Journals> Journal { get; set; }
+        public DbSet<JournalEntry> Journal { get; set; }
         public DbSet<LikedSounds> LikedSound { get; set; }
         public DbSet<SoundBoards> SoundBoard { get; set; }
 
