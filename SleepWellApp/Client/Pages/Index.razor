@@ -1,11 +1,6 @@
 ﻿@page "/"
-
-
-
 <PageTitle>SleepWell.NET</PageTitle>
 <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
-
-
 
 <MudContainer>
     <MudImage Src="images/Logo.png" Alt="OurLogo" Elevation="0" Class="rounded-lg" style="padding-top: 0px" />
@@ -33,6 +28,9 @@
     {
         <h1>Hello @User.FirstName</h1>
     }
+
+    <input type="text" @bind="searchText" placeholder="Search by Title">
+
     @code {
         List<AudioCard> audioCards = new List<AudioCard>
         {
@@ -45,7 +43,7 @@
         };
     }
     <MudGrid Class="mt-8" Justify="Justify.Center">
-        @foreach (var card in audioCards)
+        @foreach (var card in filteredAudioCards)
         {
             <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
         }

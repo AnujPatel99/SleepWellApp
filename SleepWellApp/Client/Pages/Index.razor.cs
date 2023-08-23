@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
 using SleepWellApp.Client.HttpRepository;
+using SleepWellApp.Client.Shared;
 
 namespace SleepWellApp.Client.Pages;
 
@@ -23,4 +24,13 @@ public partial class Index
             User = await Http.GetFromJsonAsync<UserDto>("api/User");
         }
     }
+
+    private string searchText = "";
+
+    private List<AudioCard> filteredAudioCards =>
+        string.IsNullOrWhiteSpace(searchText)
+            ? audioCards
+            : audioCards.Where(card => card.audioTitle.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+    
+
 }
