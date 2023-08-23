@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SleepWellApp.Server.Models
 {
-    public class Journals
+    public class JournalEntry
     {
         [Key]
         public int Journal_Id { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string? Journal_Content { get; set; }
     }
 }
