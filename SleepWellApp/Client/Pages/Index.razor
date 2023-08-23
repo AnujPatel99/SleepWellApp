@@ -29,7 +29,7 @@
         <h1>Hello @User.FirstName</h1>
     }
 
-    <input type="text" @bind="searchText" placeholder="Search by Title">
+    <MudTextField @bind-Value="searchText" Label="Search audio by Title" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Sharp.Search" />
 
     @code {
         List<AudioCard> audioCards = new List<AudioCard>
