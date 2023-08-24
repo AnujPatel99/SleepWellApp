@@ -5,13 +5,29 @@
 
 @inject HttpClient Http
 
-<PageTitle>Weather forecast</PageTitle>
-<div>
-<ul>
-    @foreach (var audioId in audioIds)
-    {
-        <li>@audioId</li>
-    }
-</ul>
+<PageTitle>Liked Sounds</PageTitle>
+@* [UnathorizedView] *@
+@code {
+        List<AudioCard> audioCards = new List<AudioCard> {
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 1, audioTitle = "Rainforests Sounds", audioDesc = "This photo is of the Amazon Rainforest", audioLink = "audio/sample.mp3" },
+    new AudioCard { audioImage = "images/bird.png", audioID = 2, audioTitle = "Bird Noises", audioDesc = "Bird Noises", audioLink = "audio/bird_noise.mp3" },
+    new AudioCard { audioImage = "images/black.jpg", audioID = 3, audioTitle = "Black Noise", audioDesc = "Black Noise", audioLink = "audio/black_noise.mp3" },
+    new AudioCard { audioImage = "images/brown.jpg", audioID = 4, audioTitle = "Brown Noise", audioDesc = "Brown Noise", audioLink = "audio/brown_noise.mp3" },
+    new AudioCard { audioImage = "images/thunder.jpg", audioID = 5, audioTitle = "Dark Noise", audioDesc = "Thunder rolling in", audioLink = "audio/dark_noise.mp3" },
+    new AudioCard { audioImage = "images/pink.jpg", audioID = 6, audioTitle = "Pink Noise", audioDesc = "Pink Noise", audioLink = "audio/pink_noise.mp3" },
+    new AudioCard { audioImage = "images/sleep.jpg", audioID = 7, audioTitle = "Sleep Well", audioDesc = "Sleep Well", audioLink = "audio/sleepWell_noise.mp3" },
+    new AudioCard { audioImage = "images/white.jpg", audioID = 8, audioTitle = "White Noise", audioDesc = "White Noise", audioLink = "audio/static_noise.mp3" },
+    new AudioCard { audioImage = "images/summerNight.jpg", audioID = 9, audioTitle = "Summer Night Noise", audioDesc = "Hot Summer Nights", audioLink = "audio/summerNight_noise.mp3" },
+    new AudioCard { audioImage = "images/wave.jpg", audioID = 10, audioTitle = "Waves Noise", audioDesc = "Waves crashing on the beach", audioLink = "audio/wave_noise.mp3" }
 
-</div>
+    };
+    }
+    <MudGrid Class="mt-8" Justify="Justify.Center">
+        @foreach (var card in audioCards)
+        {
+            @if (audioIds.Contains(card.audioID))
+            {
+                <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
+            }
+        }
+    </MudGrid>
