@@ -8,7 +8,7 @@
 <PageTitle>Liked Sounds</PageTitle>
 @* [UnathorizedView] *@
 @code {
-        List<AudioCard> audioCards = new List<AudioCard> {
+    List<AudioCard> audioCards = new List<AudioCard> {
     new AudioCard { audioImage = "images/pilars.jpg", audioID = 1, audioTitle = "Rainforests Sounds", audioDesc = "This photo is of the Amazon Rainforest", audioLink = "audio/sample.mp3" },
     new AudioCard { audioImage = "images/bird.png", audioID = 2, audioTitle = "Bird Noises", audioDesc = "Bird Noises", audioLink = "audio/bird_noise.mp3" },
     new AudioCard { audioImage = "images/black.jpg", audioID = 3, audioTitle = "Black Noise", audioDesc = "Black Noise", audioLink = "audio/black_noise.mp3" },
@@ -21,13 +21,41 @@
     new AudioCard { audioImage = "images/wave.jpg", audioID = 10, audioTitle = "Waves Noise", audioDesc = "Waves crashing on the beach", audioLink = "audio/wave_noise.mp3" }
 
     };
-    }
-    <MudGrid Class="mt-8" Justify="Justify.Center">
-        @foreach (var card in audioCards)
-        {
-            @if (audioIds.Contains(card.audioID))
-            {
+}
+<AuthorizeView>
+    <Authorized>
+        <MudGrid Class="mt-8" Justify="Justify.Center">
+            @*@foreach (var card in audioCards)
+                {
+                @if (audioIds.Contains(card.audioID))
+                {
                 <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
+                }
+                }*@
+            @if (audioIds.Count() == 0)
+            {
+                <h3 style="text-align:center">
+                    You don't have any Liked Audios! Oh No!
+                    <br>Go back to the homepage, find something you like, and click on the like button!
+                    <img style="display: block" src="images/shocked_monkey.jpg" alt="Shocked Monkey" width="650" height="400">
+                </h3>
             }
-        }
-    </MudGrid>
+            else
+            {
+                @foreach (var id in audioIds)
+                {
+                    if (audioCards[id - 1].audioID.Equals(id))
+                    {
+                        <AudioCard audioImage="@audioCards[id - 1].audioImage" audioID="@audioCards[id - 1].audioID" audioTitle="@audioCards[id - 1].audioTitle" audioDesc="@audioCards[id - 1].audioDesc" audioLink="@audioCards[id - 1].audioLink"> </AudioCard>
+                    }
+                }
+            }
+        </MudGrid>
+    </Authorized>
+    <NotAuthorized>
+        <h3 style="text-align:center">
+                    Whoops...You aren't logged in!
+                    <br>Either Log in or Register an Account to view this page!
+                </h3>
+    </NotAuthorized>
+</AuthorizeView>
