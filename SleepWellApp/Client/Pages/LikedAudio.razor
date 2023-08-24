@@ -2,56 +2,32 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using SleepWellApp.Shared
-@attribute [Authorize]
+
 @inject HttpClient Http
-[Authorized View]
-<PageTitle>Weather forecast</PageTitle>
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
+<PageTitle>Liked Sounds</PageTitle>
+@* [UnathorizedView] *@
 @code {
-    private WeatherForecast[]? forecasts;
+        List<AudioCard> audioCards = new List<AudioCard> {
+    new AudioCard { audioImage = "images/pilars.jpg", audioID = 1, audioTitle = "Rainforests Sounds", audioDesc = "This photo is of the Amazon Rainforest", audioLink = "audio/sample.mp3" },
+    new AudioCard { audioImage = "images/bird.png", audioID = 2, audioTitle = "Bird Noises", audioDesc = "Bird Noises", audioLink = "audio/bird_noise.mp3" },
+    new AudioCard { audioImage = "images/black.jpg", audioID = 3, audioTitle = "Black Noise", audioDesc = "Black Noise", audioLink = "audio/black_noise.mp3" },
+    new AudioCard { audioImage = "images/brown.jpg", audioID = 4, audioTitle = "Brown Noise", audioDesc = "Brown Noise", audioLink = "audio/brown_noise.mp3" },
+    new AudioCard { audioImage = "images/thunder.jpg", audioID = 5, audioTitle = "Dark Noise", audioDesc = "Thunder rolling in", audioLink = "audio/dark_noise.mp3" },
+    new AudioCard { audioImage = "images/pink.jpg", audioID = 6, audioTitle = "Pink Noise", audioDesc = "Pink Noise", audioLink = "audio/pink_noise.mp3" },
+    new AudioCard { audioImage = "images/sleep.jpg", audioID = 7, audioTitle = "Sleep Well", audioDesc = "Sleep Well", audioLink = "audio/sleepWell_noise.mp3" },
+    new AudioCard { audioImage = "images/white.jpg", audioID = 8, audioTitle = "White Noise", audioDesc = "White Noise", audioLink = "audio/static_noise.mp3" },
+    new AudioCard { audioImage = "images/summerNight.jpg", audioID = 9, audioTitle = "Summer Night Noise", audioDesc = "Hot Summer Nights", audioLink = "audio/summerNight_noise.mp3" },
+    new AudioCard { audioImage = "images/wave.jpg", audioID = 10, audioTitle = "Waves Noise", audioDesc = "Waves crashing on the beach", audioLink = "audio/wave_noise.mp3" }
 
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+    };
     }
-}
+    <MudGrid Class="mt-8" Justify="Justify.Center">
+        @foreach (var card in audioCards)
+        {
+            @if (audioIds.Contains(card.audioID))
+            {
+                <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
+            }
+        }
+    </MudGrid>
