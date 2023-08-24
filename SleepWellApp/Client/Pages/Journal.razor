@@ -8,7 +8,7 @@
    private int spacing = 2;
    private DateTime date = DateTime.Now;
    private string journalContent = "";
-   private string errorMessage = ""; //stores error messages
+   private string errorMessage = ""; // Add this line to store error messages
 
    IEnumerable<string> MaxCharacters(string value)
    {
@@ -33,36 +33,36 @@
                    // Journal entry saved successfully
                    // You can show a success message to the user if needed
                }
-               else //Error Handling
+               else
                {
-                   
-                   // Display the error message
+                   // Handle error
+                   // Display the error message to the user
                    errorMessage = await response.Content.ReadAsStringAsync();
                }
            }
        }
        catch (Exception ex)
        {
-           errorMessage = ex.Message; // Stores the exception message
+           errorMessage = ex.Message; // Store the exception message
        }
    }
 }
 
 <h1>Your Journals</h1>
 
-   <MudItem>
-        <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="700px">
-            <h3>@date</h3>
-            <MudTextField T="string" Counter="500" Lines="5" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="What did you dream about?" Variant="Variant.Text" />
-            <MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary">Save</MudButton>
-        </MudPaper>
-    </MudItem>
+<MudGrid Spacing="@spacing" Justify="Justify.Center">
+<MudItem>
+<MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="700px">
+<h3>@date</h3>
+
+<MudTextField @bind-Value="journalContent" T="string" Counter="500" Lines="5" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="What did you dream about?" Variant="Variant.Text" />
 
 <MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary" @onclick="SaveJournal">Save</MudButton>
 
-    private IEnumerable<string> MaxCharacters(string ch)
-    {
-        if (!string.IsNullOrEmpty(ch) && 500 < ch?.Length)
-            yield return "Max 500 characters";
-    }
-}
+           @if (!string.IsNullOrWhiteSpace(errorMessage))
+           {
+<p style="color: red;">@errorMessage</p>
+           }
+</MudPaper>
+</MudItem>
+</MudGrid>
