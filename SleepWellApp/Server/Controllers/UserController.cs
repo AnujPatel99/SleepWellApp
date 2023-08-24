@@ -40,7 +40,7 @@ public class UserController : Controller
         return Ok(user);
     }
     [HttpGet]
-    [Authorize(Roles = "admin")]
+   // [Authorize(Roles = "admin")]
     [Route("api/get-users")]
     public async Task<List<UserDto>> GetUsers()
     {

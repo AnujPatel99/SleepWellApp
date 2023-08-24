@@ -1,4 +1,8 @@
-﻿@page "/admin"
+﻿@using System.Net.Http.Json
+@using SleepWellApp.Shared
+@inject HttpClient httpClient
+
+@page "/admin"
 
 <PageTitle>Admin Page</PageTitle>
 
@@ -9,15 +13,58 @@
 <br />
 <br />
 
+<MudButton Href="create-user" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Add" Color="Color.Primary">Add User</MudButton>
+<MudButton Href="create-role" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Person" Color="Color.Primary">Create Role</MudButton>
+<MudButton Href="manage-role" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ManageAccounts" Color="Color.Primary">Manage Role</MudButton>
+
+<MudTable Items="@Elements.Take(4)" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+    <MudTh>User Name</MudTh>
+    <MudTh>First Name</MudTh>
+    <MudTh>Last Name</MudTh>
+    <MudTh>ID</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@Elements[0].UserName</MudTd>
+        <MudTd DataLabel="Sign">@Elements[0].FirstName</MudTd>
+        <MudTd DataLabel="Name">@Elements[0].LastName</MudTd>
+        <MudTd DataLabel="Position">@Elements[0].Id</MudTd>
+    </RowTemplate>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@Elements[1].UserName</MudTd>
+        <MudTd DataLabel="Sign">@Elements[1].FirstName</MudTd>
+        <MudTd DataLabel="Name">@Elements[1].LastName</MudTd>
+        <MudTd DataLabel="Position">@Elements[1].Id</MudTd>
+    </RowTemplate>
+</MudTable>
 
 
 
-    <MudButton Href = "create-user" Variant ="Variant.Filled" EndIcon="@Icons.Material.Filled.Add" Color="Color.Primary">Add User</MudButton>
-    <MudButton Href = "create-role" Variant ="Variant.Filled" EndIcon="@Icons.Material.Filled.Person" Color="Color.Primary">Create Role</MudButton>
-    <MudButton Href = "manage-role" Variant ="Variant.Filled" EndIcon="@Icons.Material.Filled.ManageAccounts" Color="Color.Primary">Manage Role</MudButton>
+@*<MudButton Href="create-user" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Add" Color="Color.Primary">Add User</MudButton>
+    <MudButton Href="create-role" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Person" Color="Color.Primary">Create Role</MudButton>
+    <MudButton Href="manage-role" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ManageAccounts" Color="Color.Primary">Manage Role</MudButton>
 
+    <MudTable Items="@users">
+    <ToolBarContent>
+    <MudText Typo="Typo.h6">Periodic Elements</MudText>
+    <MudSpacer />
+    <MudTextField @bind-Value="users" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+    <MudTh>User Name</MudTh>
+    <MudTh>First Name</MudTh>
+    <MudTh>Last Name</MudTh>
+    <MudTh>ID</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+    <MudTd DataLabel="User Name">@Elements</MudTd>
+    <MudTd DataLabel="First Name">hhh</MudTd>
+    <MudTd DataLabel="Last Name">jh</MudTd>
+    <MudTd DataLabel="ID">nh</MudTd>
 
-    
-    @if (users is not null) {
-        <MudTable Items="@users" ></MudTable>
-    }
+    </RowTemplate>
+    <PagerContent>
+    <MudTablePager />
+    </PagerContent>
+    </MudTable>*@
+
