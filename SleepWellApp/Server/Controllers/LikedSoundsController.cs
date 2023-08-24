@@ -21,9 +21,22 @@ namespace SleepWellApp.Server.Controllers
             _userManager = userManager;
         }
 
+        // Liked Sounds Page Method
+        [HttpGet("audioIds")]
+        public async Task<ActionResult<List<int>>> GetAudioIds()
+        {
+            var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            Console.WriteLine(user.Id);
+            //var likedSounds = _context.Users.Include(a => a.LikedSound).Select(a => new {LikedSound = a.LikedSound}).ToList();
+            // var likedSounds = _context.Users.Select(a => a.LikedSound);
+            // var audioIds = user.LikedSound.Select(audio => audio.Sound_Id).ToList();
+            List<int> likedSounds = _context.LikedSound.Select(i => i.Sound_Id).ToList();
+            return Ok(likedSounds);
+        }
 
+        // Like Button for AudioCard method
         [HttpPost("{audioID}/like")]
-        public async Task<IActionResult> LikedSound(int audioID, bool liked_toggle)
+        public async Task<IActionResult> LikedSound(int audioID)
         {
             // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
