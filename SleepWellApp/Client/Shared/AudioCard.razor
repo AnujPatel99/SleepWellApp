@@ -21,6 +21,11 @@
                 <MudToggleIconButton Toggled="@Liked" ToggledChanged="ButtonOnClick" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" Title="Unliked"
                 ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
             </MudCardActions>
+        <MudSelect T="string" Label="Duration" AnchorOrigin="Origin.BottomCenter">
+            <MudSelectItem Value="@("30 Minutes")" />
+            <MudSelectItem Value="@("1 Hour")" />
+            <MudSelectItem Value="@("2 Hours")" />
+        </MudSelect>
         </MudCard>
     </MudItem>
     @if (timesTapped > 10)
