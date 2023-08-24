@@ -78,7 +78,7 @@ public class UserController : Controller
         else { return new List<string>(); }
     }
 
-    //Journaling Methods Impplemented
+    //Journaling Methods Implemented
     [HttpPost]
     [Route("api/User/SaveJournalEntry")]
     public async Task<IActionResult> SaveJournalEntry([FromBody] JournalDto journalDto)

@@ -1,9 +1,54 @@
 ﻿@page "/journal"
+@using System.Net.Http.Json
+@using SleepWellApp.Shared
 
 <PageTitle>Journal</PageTitle>
 
-<h1> Your Journals</h1>
-<MudGrid Spacing="@spacing" Justify="Justify.Center">
+@code {
+   private int spacing = 2;
+   private DateTime date = DateTime.Now;
+   private string journalContent = "";
+   private string errorMessage = ""; //stores error messages
+
+   IEnumerable<string> MaxCharacters(string value)
+   {
+       if (value.Length > 500)
+       {
+           yield return "Text exceeds maximum character limit.";
+       }
+   }
+
+   public async Task SaveJournal()
+   {
+       try
+       {
+           var journalDto = new JournalDto { JournalContent = journalContent };
+
+           using (var client = new HttpClient())
+           {
+               var response = await client.PostAsJsonAsync("/api/User/SaveJournalEntry", journalDto);
+
+               if (response.IsSuccessStatusCode)
+               {
+                   // Journal entry saved successfully
+                   // You can show a success message to the user if needed
+               }
+               else //Error Handling
+               {
+                   
+                   // Display the error message
+                   errorMessage = await response.Content.ReadAsStringAsync();
+               }
+           }
+       }
+       catch (Exception ex)
+       {
+           errorMessage = ex.Message; // Stores the exception message
+       }
+   }
+}
+
+<h1>Your Journals</h1>
 
    <MudItem>
         <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="700px">
@@ -13,10 +58,7 @@
         </MudPaper>
     </MudItem>
 
-</MudGrid>
-@code {
-    public int spacing { get; set; } = 2;
-    DateTime? date = DateTime.Today;
+<MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary" @onclick="SaveJournal">Save</MudButton>
 
     private IEnumerable<string> MaxCharacters(string ch)
     {
