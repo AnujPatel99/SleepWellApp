@@ -1,26 +1,117 @@
 ﻿@page "/journal"
+@using System.Net.Http.Json
+@using SleepWellApp.Shared
 
 <PageTitle>Journal</PageTitle>
 
-<h1> Your Journals</h1>
+@code {
+   private int spacing = 2;
+   private DateTime date = DateTime.Now;
+   private string journalContent = "";
+   private string errorMessage = ""; // Add this line to store error messages
+
+   IEnumerable<string> MaxCharacters(string value)
+   {
+       if (value.Length > 500)
+       {
+           yield return "Text exceeds maximum character limit.";
+       }
+   }
+
+   public async Task SaveJournal()
+   {
+       try
+       {
+           var journalDto = new JournalDto { JournalContent = journalContent };
+
+           using (var client = new HttpClient())
+           {
+               var response = await client.PostAsJsonAsync("/api/User/SaveJournalEntry", journalDto);
+
+               if (response.IsSuccessStatusCode)
+               {
+                   // Journal entry saved successfully
+                   // You can show a success message to the user if needed
+               }
+               else
+               {
+                   // Handle error
+                   // Display the error message to the user
+                   errorMessage = await response.Content.ReadAsStringAsync();
+               }
+           }
+       }
+       catch (Exception ex)
+       {
+           errorMessage = ex.Message; // Store the exception message
+       }
+   }
+}
+<MudGrid Spacing="@spacing" Justify="Justify.Center">
+<MudText Typo="Typo.h3">My Sleep Journal</MudText>
+</MudGrid>
+
+<MudGrid Spacing="@spacing" Justify="Justify.Center">
+<MudItem>
+<MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="700px">
+<h3>@date</h3>
+
+<MudTextField @bind-Value="journalContent" T="string" Counter="500" Lines="5" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="What did you dream about?" Variant="Variant.Text" />
+
+<MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary" @onclick="SaveJournal">Save</MudButton>
+
+           @if (!string.IsNullOrWhiteSpace(errorMessage))
+           {
+<p style="color: red;">@errorMessage</p>
+           }
+</MudPaper>
+</MudItem>
+</MudGrid>
+
+
+<!--AI Image Generation UI-->
+
 <MudGrid Spacing="@spacing" Justify="Justify.Center">
 
-   <MudItem>
-        <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="700px">
-            <h3>@date</h3>
-            <MudTextField T="string" Counter="500" Lines="5" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="What did you dream about?" Variant="Variant.Text" />
-            <MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary">Save</MudButton>
-        </MudPaper>
-    </MudItem>
-
+    <div style="margin-top: 50px;">
+        <MudItem>
+            <MudText Typo="Typo.h4">Let's Visualize Last Night's Dream!</MudText>
+        </MudItem>
+    </div>
 </MudGrid>
-@code {
-    public int spacing { get; set; } = 2;
-    DateTime? date = DateTime.Today;
 
-    private IEnumerable<string> MaxCharacters(string ch)
-    {
-        if (!string.IsNullOrEmpty(ch) && 500 < ch?.Length)
-            yield return "Max 500 characters";
-    }
-}
+<MudGrid Spacing="@spacing" Justify="Justify.Center">
+    <div style="margin-top: 25px;">
+        <MudItem>
+            <MudButton Disabled="@_processing" OnClick="ProcessSomething" Variant="Variant.Filled" Color="Color.Primary">
+                @if (_processing)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    <MudText Class="ms-2">One Moment Please</MudText>
+                }
+                else
+                {
+                    <MudText>Generate My Dream</MudText>
+                }
+            </MudButton>
+            @code {
+            private bool _processing = false;
+
+        async Task ProcessSomething()
+        {
+            _processing = true;
+            await Task.Delay(2000);
+            _processing = false;
+        }
+            }
+        </MudItem>
+    </div>
+</MudGrid>
+
+<MudGrid Spacing="@spacing" Justify="Justify.Center">
+    <div style="margin-top: 50px;">
+        <MudItem>
+            <MudImage Src="images/placeholder.jpg" Width="450" Height="307" Alt="Place Holder" Elevation="30" Class="rounded-lg" />
+        </MudItem>
+    </div>
+</MudGrid>
