@@ -15,9 +15,14 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="journal">
+            @*<NavLink class="nav-link" href="journal">
                 <MudIcon Icon="@Icons.Material.Outlined.MenuBook" Size="Size.Large" />&emsp;Journal
-            </NavLink>
+            </NavLink>*@
+
+            <MudNavGroup Title="Journal" Expanded="true">
+            <MudNavLink Href="/journal">Add Journal</MudNavLink>
+            <MudNavLink Href="/viewjournal">View Journals</MudNavLink>
+             </MudNavGroup>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="likedaudio">
