@@ -2,20 +2,21 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace SleepWellApp.Client.Shared;
 
 public partial class AudioCard
 {
-    [Parameter]
+    [Parameter] [Required]
     public int audioID { get; set; } // ID
-    [Parameter]
+    [Parameter] [Required]
     public string? audioTitle { get; set; } // Title
     [Parameter]
     public string? audioImage { get; set; } // Image
     [Parameter]
     public string? audioDesc { get; set; } // Description
-    [Parameter]
+    [Parameter] [Required]
     public string? audioLink { get; set; } // Direct link to audio file
 
     public bool Liked { get; set; }

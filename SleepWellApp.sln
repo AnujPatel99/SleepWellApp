@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SleepWellApp.Client", "Slee
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SleepWellApp.Shared", "SleepWellApp\Shared\SleepWellApp.Shared.csproj", "{973D386B-4ECB-4CB3-91B4-EF63BC8526D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepWellApp.Tests", "SleepWellApp.Tests\SleepWellApp.Tests.csproj", "{F55E23B8-CA34-4676-ACAB-9D7879DA75FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{973D386B-4ECB-4CB3-91B4-EF63BC8526D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{973D386B-4ECB-4CB3-91B4-EF63BC8526D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{973D386B-4ECB-4CB3-91B4-EF63BC8526D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F55E23B8-CA34-4676-ACAB-9D7879DA75FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F55E23B8-CA34-4676-ACAB-9D7879DA75FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F55E23B8-CA34-4676-ACAB-9D7879DA75FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F55E23B8-CA34-4676-ACAB-9D7879DA75FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
