@@ -12,6 +12,15 @@ namespace SleepWellApp.Client.Pages.UserAdmin
         [Inject]
         public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
         private List<UserDto> ListOfUsers = new List<UserDto>();
+        private bool dense = false;
+        private bool hover = true;
+        private bool striped = false;
+        private bool bordered = false;
+        private string searchString1 = "";
+        private UserDto selectedItem1 = null;
+        private HashSet<UserDto> selectedItems = new HashSet<UserDto>();
+
+        private IEnumerable<UserDto> elements = new List<UserDto>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -25,6 +34,20 @@ namespace SleepWellApp.Client.Pages.UserAdmin
         public async Task<List<UserDto>> GetUserInfo()
         {
             return await Http.GetFromJsonAsync<List<UserDto>>("api/get-users");
+        }
+
+        private bool FilterFunc1(UserDto element) => FilterFunc(element, searchString1);
+        private bool FilterFunc(UserDto element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if ($"{element.UserName} {element.FirstName} {element.LastName}".Contains(searchString))
+                return true;
+            return false;
         }
     }
 }
