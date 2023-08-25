@@ -1,0 +1,23 @@
+﻿@page "/viewjournal"
+
+<PageTitle>Journal</PageTitle>
+<AuthorizeView>
+    <Authorized>
+
+        @*PUT THE HTML TO VIEW JOURNALS HERE*@
+     </Authorized>
+    <NotAuthorized>
+        <h3 style="text-align:center">
+            Whoops...You aren't logged in!
+            <br>Either Log in or Register an Account to view this page!
+        </h3>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
+
+
+@code {
+
+}
