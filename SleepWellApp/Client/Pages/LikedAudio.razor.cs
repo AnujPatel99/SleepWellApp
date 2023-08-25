@@ -19,7 +19,6 @@ namespace SleepWellApp.Client.Pages
             {
                 audioIds = await GetAudioIdsFromApi();
             }
-            //audioIds = await GetAudioIdsFromApi();
         }
 
         public async Task<List<int>> GetAudioIdsFromApi()

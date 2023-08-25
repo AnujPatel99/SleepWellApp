@@ -27,9 +27,6 @@ namespace SleepWellApp.Server.Controllers
         {
             var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             Console.WriteLine(user.Id);
-            //var likedSounds = _context.Users.Include(a => a.LikedSound).Select(a => new {LikedSound = a.LikedSound}).ToList();
-            // var likedSounds = _context.Users.Select(a => a.LikedSound);
-            // var audioIds = user.LikedSound.Select(audio => audio.Sound_Id).ToList();
             List<int> likedSounds = _context.LikedSound.Select(i => i.Sound_Id).ToList();
             return Ok(likedSounds);
         }

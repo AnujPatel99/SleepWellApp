@@ -6,7 +6,7 @@
 @inject HttpClient Http
 
 <PageTitle>Liked Sounds</PageTitle>
-@* [UnathorizedView] *@
+
 @code {
     List<AudioCard> audioCards = new List<AudioCard> {
     new AudioCard { audioImage = "images/pilars.jpg", audioID = 1, audioTitle = "Rainforests Sounds", audioDesc = "This photo is of the Amazon Rainforest", audioLink = "audio/sample.mp3" },
@@ -25,13 +25,6 @@
 <AuthorizeView>
     <Authorized>
         <MudGrid Class="mt-8" Justify="Justify.Center">
-            @*@foreach (var card in audioCards)
-                {
-                @if (audioIds.Contains(card.audioID))
-                {
-                <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
-                }
-                }*@
             @if (audioIds.Count() == 0)
             {
                 <h3 style="text-align:center">
