@@ -18,11 +18,11 @@
 
                     <MudTextField @bind-Value="journalContent" T="string" Counter="500" Lines="5" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label="What did you dream about?" Variant="Variant.Text" />
 
-                    <MudButton Class="mt-3" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary" @onclick="SaveJournal">Save</MudButton>
+                    <MudButton Class="mt-3 mb-5 align-center" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Save" Color="Color.Primary" @onclick="SaveJournal">Save</MudButton>
 
-                    @if (!string.IsNullOrWhiteSpace(@errorMessage))
+                    @if (!string.IsNullOrWhiteSpace(@Message))
                     {
-                        <p style="color: red;">@errorMessage</p>
+                        <p style="color: black;text-align: center">@Message</p>
                     }
                 </MudPaper>
             </MudItem>

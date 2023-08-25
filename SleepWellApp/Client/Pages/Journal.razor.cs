@@ -1,16 +1,20 @@
-﻿using SleepWellApp.Shared;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using SleepWellApp.Shared;
 using System.Net.Http.Json;
 
 namespace SleepWellApp.Client.Pages
 {
     public partial class Journal
     {
+        [Inject]
+        public HttpClient Http { get; set; } = new HttpClient();
+        [Inject]
+        public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
         public int spacing { get; set; } = 2;
-        DateTime? date = DateTime.Today;
-
         public DateTime dateNow = DateTime.Now;
         public string journalContent { get; set; } = "";
-        public string errorMessage { get; set; } = ""; // Add this line to store error messages
+        public string Message { get; set; } = ""; // Add this line to store error messages
 
         IEnumerable<string> MaxCharacters(string value)
         {
@@ -22,30 +26,31 @@ namespace SleepWellApp.Client.Pages
 
         public async Task SaveJournal()
         {
-            try
+            if (string.IsNullOrWhiteSpace(journalContent)) {
+                Message = "I'm sure you've dreamt about something! Don't leave us hanging!";
+            }
+            else
             {
-                var journalDto = new JournalDto { JournalContent = journalContent };
-
-                using (var client = new HttpClient())
+                try
                 {
-                    var response = await client.PostAsJsonAsync("api/User/SaveJournalEntry", journalDto);
+                    var journalDto = new JournalDto { JournalContent = journalContent };
+                    var response = await Http.PostAsJsonAsync("api/User/SaveJournalEntry", journalDto);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Journal entry saved successfully
-                        // You can show a success message to the user if needed
+                        Message = "Journal entry successfully logged!";
                     }
                     else
                     {
                         // Handle error
                         // Display the error message to the user
-                        errorMessage = await response.Content.ReadAsStringAsync();
+                        Message = await response.Content.ReadAsStringAsync();
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                errorMessage = ex.Message; // Store the exception message
+                catch (Exception ex)
+                {
+                    Message = ex.Message; // Store the exception message
+                }
             }
         }
     }

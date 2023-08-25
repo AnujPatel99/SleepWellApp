@@ -41,7 +41,7 @@ public class UserController : Controller
     }
 
     [HttpGet]
-   // [Authorize(Roles = "admin")]
+    // [Authorize(Roles = "admin")]
     [Route("api/get-users")]
     public async Task<List<UserDto>> GetUsers()
     {
@@ -84,7 +84,7 @@ public class UserController : Controller
     [Route("api/User/SaveJournalEntry")]
     public async Task<IActionResult> SaveJournalEntry([FromBody] JournalDto journalDto)
     {
-        var user = await _userManager.GetUserAsync(User);
+        var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         if (user == null)
         {
@@ -95,12 +95,10 @@ public class UserController : Controller
 
         var journalEntry = new JournalEntry
         {
-            Id = user.Id,
             Journal_Content = journalDto.JournalContent
         };
 
         //Adding and saving the journal entries to the database
-        // _context.JournalEntries.Add(journalEntry);
         user.Journal.Add(journalEntry);
         await _context.SaveChangesAsync();
 

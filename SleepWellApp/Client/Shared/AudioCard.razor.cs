@@ -62,8 +62,8 @@ public partial class AudioCard
             audioDesc = audioID.ToString() + " " + User.Id;
 
             await Http.PostAsync($"api/audio/{audioID}/like", null);
-        } 
-        catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
