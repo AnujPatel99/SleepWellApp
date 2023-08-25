@@ -1,14 +1,15 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
+    <div style="background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(188,181,219,1) 50%, rgba(148,187,233,1) 100%);" class="sidebar">
         <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-4 auth">
+        <div class="top-row px-4 auth " style="color:white; background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(188,181,219,1) 50%, rgba(148,187,233,1) 100%);">
+            <MudButton style="color:white" OnClick="ToggleDarkMode">Toggle Dark Mode</MudButton>
             <LoginDisplay />
-            <a href="https://github.com/AnujPatel99/SleepWellApp/" target="_blank">GitHub</a>
+            <a style="color:white" href="https://github.com/AnujPatel99/SleepWellApp/" target="_blank">GitHub</a>
         </div>
 
         <article class="content px-4">
@@ -16,48 +17,48 @@
             <MudSnackbarProvider />
 
             <MudThemeProvider Theme="_themeManager.Theme" />
-            <MudLayout >
-                <MudMainContent >
+            <MudLayout>
+                <MudMainContent>
                     @Body
                 </MudMainContent>
-                <MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))" />
-                <MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
             </MudLayout>
         </article>
     </main>
 </div>
 
 @code {
-
-
-    MudTheme MyCustomTheme = new MudTheme()
-    {
-        Typography = new Typography()
-        {
-            Default = new Default()
-            {
-                FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" }
-            }
-        }
-    };
-
-
     private ThemeManagerTheme _themeManager = new ThemeManagerTheme();
-    public bool _themeManagerOpen = false;
+    private bool _isDarkMode = false;
 
-    void OpenThemeManager(bool value)
+    private void ToggleDarkMode()
     {
-        _themeManagerOpen = value;
-    }
+        _isDarkMode = !_isDarkMode;
 
-    void UpdateTheme(ThemeManagerTheme value)
-    {
-        _themeManager = value;
+        _themeManager.Theme = _isDarkMode
+            ? new MudTheme()
+            {
+                Palette = new Palette()
+                {
+                    Black = "#121212",
+                    Background = "#121212",
+                    Surface = "#121212",
+                    AppbarBackground = "#121212",
+                    DrawerBackground = "#121212",
+                    DrawerText = "rgba(255,255,255, 0.70)",
+                    DrawerIcon = "rgba(255,255,255, 0.70)",
+                    AppbarText = "rgba(255,255,255, 0.70)",
+                    TextPrimary = "rgba(255,255,255, 0.87)",
+                    TextSecondary = "rgba(255,255,255, 0.70)"
+                }
+            }
+            : new MudTheme(); // Reset to default theme
+
         StateHasChanged();
     }
 
     protected override void OnInitialized()
     {
+        _themeManager.Theme = new MudTheme(); // Set default theme on initialization
         StateHasChanged();
     }
 }
