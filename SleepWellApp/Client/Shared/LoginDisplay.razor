@@ -8,8 +8,8 @@
 <AuthorizeView>
     <Authorized>
         <MudAvatar Color="Color.Primary">@FirstInitial</MudAvatar>
-        <a href="authentication/profile">Hello, @context.User.Identity?.Name!</a>
-        <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
+        <a style="color:white" href="authentication/profile">Hello, @context.User.Identity?.Name!</a>
+        <button style="color:white" class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
     </Authorized>
     <NotAuthorized>
         <a href="authentication/register">Register</a>
@@ -40,10 +40,4 @@
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
     }
-
-    public string getInitial()
-    {
-        return "";
-    }
-
 }
