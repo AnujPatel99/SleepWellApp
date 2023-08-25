@@ -6,18 +6,23 @@ using SleepWellApp.Shared;
 using SleepWellApp.Server.Data;
 using SleepWellApp.Server.Models;
 using Microsoft.AspNetCore.Authorization;
+using HPCTech2023FavoriteMovie.Shared;
 
 namespace SleepWellApp.Server.Controllers;
 
 public class UserController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    //private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ApplicationDbContext _context;
 
     public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
         _context = context;
+       // _roleManager = roleManager;
+   
+
     }
 
     [HttpGet]
@@ -30,7 +35,7 @@ public class UserController : Controller
                 Id = u.Id,
                 UserName = u.UserName,
                 FirstName = u.FirstName,
-                LastName = u.LastName,
+                LastName = u.LastName
             }).FirstOrDefaultAsync(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         if (user is null)
@@ -65,19 +70,25 @@ public class UserController : Controller
 
     }
 
-    [HttpGet]
-    [Authorize(Roles = "admin")]
+    /*[HttpGet]
+    //[Authorize(Roles = "admin")]
     [Route("api/get-roles/{id}")]
-    public async Task<List<string>> GetRoles(string id)
+    public async Task<List<RoleDto>> GetRoles(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
         if (user is not null)
         {
             IList<string> roles = await _userManager.GetRolesAsync(user);
-            return roles.ToList();
+            var retRoles = (from r in roles
+                            select new RoleDto
+                            {
+                                Name = r
+                            }).ToList();
+            return retRoles;
         }
-        else { return new List<string>(); }
-    }
+        else { return new List<RoleDto>(); }
+
+    }*/
 
     //Journaling Methods Implemented
     [HttpPost]
