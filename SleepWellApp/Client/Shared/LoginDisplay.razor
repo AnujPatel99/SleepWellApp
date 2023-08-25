@@ -1,12 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using SleepWellApp.Shared;
 
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 
 <AuthorizeView>
     <Authorized>
-        <MudAvatar Color="Color.Primary">A</MudAvatar>
+        <MudAvatar Color="Color.Primary">@FirstInitial</MudAvatar>
         <a href="authentication/profile">Hello, @context.User.Identity?.Name!.</a>
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
     </Authorized>
@@ -17,6 +18,23 @@
 </AuthorizeView>
 
 @code {
+    [Inject]
+    public HttpClient Http { get; set; } = new HttpClient();
+    [Inject]
+    public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+    public UserDto? User = null;
+    public char? FirstInitial { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var UserAuth = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
+        if (UserAuth is not null && UserAuth.IsAuthenticated)
+        {
+            User = await Http.GetFromJsonAsync<UserDto>("api/User");
+            FirstInitial = User.FirstName[0];
+        }
+    }
+
     private async Task BeginSignOut(MouseEventArgs args)
     {
         await SignOutManager.SetSignOutState();
