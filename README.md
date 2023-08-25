@@ -35,7 +35,7 @@ Follow these steps to get started with SleepWell.Net:
 
 ## Feedback and Support
 
-We're dedicated to improving your experience with SleepWell.Net. If you encounter any issues or have suggestions for enhancements, please open an issue in this repository. For general inquiries, reach out to our support team at support@sleepwell.net.
+We're dedicated to improving your experience with SleepWell.Net. If you encounter any issues or have suggestions for enhancements, please open an issue in this repository. For general inquiries, reach out to our support team at support@sleepwell.net. (Not really)
 
 ## Contributing
 
