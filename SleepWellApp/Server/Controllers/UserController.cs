@@ -39,6 +39,7 @@ public class UserController : Controller
         }
         return Ok(user);
     }
+
     [HttpGet]
    // [Authorize(Roles = "admin")]
     [Route("api/get-users")]
