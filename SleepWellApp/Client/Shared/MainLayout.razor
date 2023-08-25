@@ -4,13 +4,30 @@
     <div class="sidebar">
         <NavMenu />
     </div>
+    <div  style="background-color: lightblue;">
 
+        </div>
     <main>
-        <div class="top-row px-4 auth" style="color: white; background: #2b2b2b;">
-            <MudButton Class="dark-mode-button" OnClick="ToggleDarkMode">Toggle Dark Mode</MudButton>
+            @if(!_isDarkMode)
+            {
+              <div class="top-row px-4 auth" style="color: white; background: #87CEEB;">
+
+                <MudButton Class="dark-mode-button" OnClick="ToggleDarkMode">Toggle Dark Mode</MudButton>
             <LoginDisplay />
             <a style="color: white" href="https://github.com/AnujPatel99/SleepWellApp/" target="_blank">GitHub</a>
         </div>
+         
+            }
+            else
+            {
+ <div class="top-row px-4 auth" style="color: white; background: #2b2b2b;">
+
+                <MudButton Class="dark-mode-button" OnClick="ToggleDarkMode">Toggle Light Mode</MudButton>
+            <LoginDisplay />
+            <a style="color: white" href="https://github.com/AnujPatel99/SleepWellApp/" target="_blank">GitHub</a>
+        </div>
+            }
+           
 
         <article class="content px-4">
             <MudDialogProvider />
