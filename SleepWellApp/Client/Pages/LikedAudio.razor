@@ -23,7 +23,10 @@
 }
 <AuthorizeView>
     <Authorized>
-        <h1 style="text-align:center">@context.User.Identity.Name's Liked Sounds</h1>
+        @if (User is not null ) {
+          <h1 style="text-align:center">@User.FirstName's Liked Sounds</h1>
+
+        }
         <MudGrid Class="mt-8" Justify="Justify.Center">
             @if (audioIds.Count() == 0)
             {

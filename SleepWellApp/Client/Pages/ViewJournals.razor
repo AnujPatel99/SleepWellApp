@@ -3,9 +3,15 @@
 <PageTitle>Journal</PageTitle>
 <AuthorizeView>
     <Authorized>
-        <h1> @context.User.Identity?.Name's Journals</h1>
+        @if (User is not null)
+        {
+            
+            <h1> @User.FirstName's journals</h1>
+        }
+        
+
         @*PUT THE HTML TO VIEW JOURNALS HERE*@
-       
+     
      </Authorized>
     <NotAuthorized>
         <h3 style="text-align:center">

@@ -115,18 +115,18 @@ public class UserController : Controller
 
         return Ok();
     }
-
-    /*[HttpPost]
+    /*
+    [HttpPost]
     [Route("api/get-journals")]
     public async Task<List<JournalDto>> GetJournals()
     {
         var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        //var journals = await (from u in _context.Journal
-       //                       select new JournalDto
-        //                      {
-        //                          JournalContent = u.Journal_Content
-        //                      }).ToListAsync();
+        var journals = await (from u in _context.Journal
+                             select new JournalDto
+                              {
+                                  JournalContent = u.Journal_Content
+                              }).ToListAsync();
                               
         if (journals is not null)
         {
@@ -138,7 +138,8 @@ public class UserController : Controller
         }
 
 
-    } */
+    } 
+    */
 }
 
 

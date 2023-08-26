@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using SleepWellApp.Shared;
 using System.Net.Http.Json;
 
 namespace SleepWellApp.Client.Pages
@@ -11,6 +12,7 @@ namespace SleepWellApp.Client.Pages
         [Inject]
         public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
         private List<int> audioIds = new List<int>();
+        public UserDto? User = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -18,6 +20,8 @@ namespace SleepWellApp.Client.Pages
             if (UserAuth is not null && UserAuth.IsAuthenticated)
             {
                 audioIds = await GetAudioIdsFromApi();
+                User = await Http.GetFromJsonAsync<UserDto>("api/User");
+
             }
         }
 
