@@ -17,11 +17,11 @@
                 <MudText Typo="Typo.body2">@audioDesc</MudText>
             </MudCardContent>
             <MudCardActions>
-                <audio controls loop src=@audioLink></audio>
+            <audio id="audio @audioID" controls loop src=@audioLink></audio>
                 <MudToggleIconButton Toggled="@Liked" ToggledChanged="ButtonOnClick" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" Title="Unliked"
                 ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
             </MudCardActions>
-        <MudSelect T="string" Label="Duration" AnchorOrigin="Origin.BottomCenter">
+        <MudSelect T="string" Label="Duration" ValueChanged="OnDurationChanged" AnchorOrigin="Origin.BottomCenter">
             <MudSelectItem Value="@("30 Minutes")" />
             <MudSelectItem Value="@("1 Hour")" />
             <MudSelectItem Value="@("2 Hours")" />
@@ -55,3 +55,15 @@
         </MudItem>
     }
 <MudOverlay @bind-Visible="isVisible" DarkBackground="true" AutoClose="true" />
+
+
+<script>
+    var audio = document.getElementById("audio @audioID");
+    var duration = @durationToPlayFor; // Set the duration in seconds
+
+    audio.addEventListener("timeupdate", function () {
+        if (this.currentTime >= duration) {
+            this.pause();
+        }
+    });
+</script>

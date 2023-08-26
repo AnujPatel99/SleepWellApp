@@ -27,6 +27,8 @@ public partial class AudioCard
 
     public int timesTapped = 0;
 
+    public int durationToPlayFor;
+
     public void OpenOverlay()
     {
         isVisible = true;
@@ -39,6 +41,11 @@ public partial class AudioCard
             }
         }*/
         StateHasChanged();
+    }
+
+    public void OnDurationChanged(string s)
+    {
+        durationToPlayFor = Int32.Parse(s);
     }
 
     [Inject]
