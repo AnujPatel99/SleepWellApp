@@ -18,7 +18,7 @@ public partial class AudioCard
     public string? audioDesc { get; set; } // Description
     [Parameter] [Required]
     public string? audioLink { get; set; } // Direct link to audio file
-
+    [Parameter]
     public bool Liked { get; set; }
 
     private bool isVisible;
@@ -64,19 +64,23 @@ public partial class AudioCard
 
     public async Task ButtonOnClick(bool liked_toggle)
     {
+        Liked = liked_toggle;
         var UserAuth = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
         try
         {
-            Liked = liked_toggle;
             if (User is null)
             {
                 audioDesc = "You are not logged in! Login to like a sound.";
             }
-            else
+            else if (Liked)
             {
                 audioDesc = "Sound succesfully liked, please go to the Liked Audio page to view it!";
             }
-            await Http.PostAsync($"api/audio/{audioID}/like", null);
+            else
+            {
+                audioDesc = "Sound unliked. Maybe you'll take me back?";
+            }
+            await Http.PostAsync($"api/audio/{audioID}/like/{Liked}", null);
         }
         catch (Exception ex)
         {

@@ -53,10 +53,11 @@ namespace SleepWellApp.Server.Controllers
         }
 
         // Like Button for AudioCard method
-        [HttpPost("{audioID}/like")]
-        public async Task<IActionResult> LikedSound(int audioID)
+        [HttpPost("{audioID}/like/{Liked}")]
+        public async Task<IActionResult> LikedSound(int audioID, bool liked)
         {
             // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Console.WriteLine(liked);
             var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             LikedSounds ls = new LikedSounds
@@ -69,13 +70,12 @@ namespace SleepWellApp.Server.Controllers
             var toggleSound = _context.Users.Include(u => u.LikedSound).FirstOrDefault(u => u.Id == user.Id).LikedSound.FirstOrDefault(s => s.Sound_Id == audioID);
 
             //if (user.LikedSound.Exists(LikedSound => ls.Sound_Id == LikedSound.Sound_Id))
-            if(toggleSound is null)
+            if(toggleSound is null && liked)
             {
                 user.LikedSound.Add(ls);
             }
-            else
+            else if (!liked)
             {
-                Console.WriteLine("Remove Called" + ls.ToString());
                 user.LikedSound.Remove(toggleSound);
             }
             _context.SaveChanges();
