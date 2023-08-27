@@ -23,9 +23,9 @@
 }
 <AuthorizeView>
     <Authorized>
-        @if (User is not null ) {
-          <h1 style="text-align:center">@User.FirstName's Liked Sounds</h1>
-
+        @if (User is not null)
+        {
+            <MudText Align="Align.Center" Typo="Typo.h3">@User.FirstName's Sleep Journal</MudText>
         }
         <MudGrid Class="mt-8" Justify="Justify.Center">
             @if (audioIds.Count() == 0)
@@ -50,8 +50,8 @@
     </Authorized>
     <NotAuthorized>
         <h3 style="text-align:center">
-                    Whoops...You aren't logged in!
-                    <br>Either Log in or Register an Account to view this page!
-                </h3>
+            Whoops...You aren't logged in!
+            <br>Either Log in or Register an Account to view this page!
+        </h3>
     </NotAuthorized>
 </AuthorizeView>

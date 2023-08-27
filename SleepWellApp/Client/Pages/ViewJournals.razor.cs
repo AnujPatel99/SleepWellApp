@@ -16,6 +16,7 @@ namespace SleepWellApp.Client.Pages
         private List<string> ListOfJournals = new List<string>();
         public UserDto? User = null;
         public int spacing { get; set; } = 2;
+        public string? seed { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -39,7 +40,7 @@ namespace SleepWellApp.Client.Pages
 
         private void RefreshImage()
         {
-            imageUrl = $"https://picsum.photos/1680/1050?{Guid.NewGuid()}";
+            imageUrl = $"https://picsum.photos/seed/{seed}/1680/1050?{Guid.NewGuid()}";
         }
 
         async Task ProcessSomething()

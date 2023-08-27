@@ -6,27 +6,13 @@
     </div>
   
     <main>
-            @if(!_isDarkMode)
-            {
-              <div class="top-row px-4 auth" style="color: white; background: #87CEEB;">
-
-                <MudButton Class="dark-mode-button"  OnClick="ToggleDarkMode">Toggle Dark Mode</MudButton>
+        <div class="top-row px-4 auth" style="color: white; background: @(GetCurrentBackgroundColor())">
+            <MudIcon Icon="@Icons.Material.Outlined.NightsStay" Size="Size.Large" />
+            <MudSwitch Class="dark-mode-switch" Checked="_isDarkMode" Color="Color.Secondary" @onclick="ToggleDarkMode" />
             <LoginDisplay />
-            <a style="color: white" href="https://github.com/AnujPatel99/SleepWellApp/" target="_blank">GitHub</a>
+            <a style="color: white" href="https://github.com/AnujPatel99/SleepWellApp/" target="_blank"><MudIcon Icon="@Icons.Material.Outlined.Code" Size="Size.Large" /></a>
         </div>
          
-            }
-            else
-            {
- <div class="top-row px-4 auth" style="color: white; background: #2b2b2b;">
-
-                <MudButton Class="dark-mode-button" OnClick="ToggleDarkMode">Toggle Light Mode</MudButton>
-            <LoginDisplay />
-            <a style="color: white" href="https://github.com/AnujPatel99/SleepWellApp/" target="_blank">GitHub</a>
-        </div>
-            }
-           
-
         <article class="content px-4">
             <MudDialogProvider />
             <MudSnackbarProvider />
@@ -69,6 +55,11 @@
             : new MudTheme(); // Reset to default theme
 
         StateHasChanged();
+    }
+
+    private string GetCurrentBackgroundColor()
+    {
+        return _isDarkMode ? "#2b2b2b" : "#87CEEB";
     }
 
     protected override void OnInitialized()
