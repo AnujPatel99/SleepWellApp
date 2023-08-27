@@ -20,8 +20,8 @@ public class UserController : Controller
     {
         _userManager = userManager;
         _context = context;
-       // _roleManager = roleManager;
-   
+        // _roleManager = roleManager;
+
 
     }
 
@@ -115,31 +115,21 @@ public class UserController : Controller
 
         return Ok();
     }
-    /*
-    [HttpPost]
-    [Route("api/get-journals")]
-    public async Task<List<JournalDto>> GetJournals()
+
+    [HttpGet("api/User/GetJournalEntries")]
+    public async Task<ActionResult<List<string>>> GetJournalEntries()
     {
         var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-        var journals = await (from u in _context.Journal
-                             select new JournalDto
-                              {
-                                  JournalContent = u.Journal_Content
-                              }).ToListAsync();
-                              
-        if (journals is not null)
+        if (user is not null)
         {
-            return journals;
+            List<string> journalEntries = _context.Journal.Select(i => i.Journal_Content).ToList();
+            return Ok(journalEntries);
         }
         else
         {
-            return new List<JournalDto>();
+            return Unauthorized();
         }
-
-
-    } 
-    */
+    }
 }
 
 

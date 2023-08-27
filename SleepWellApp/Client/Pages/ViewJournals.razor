@@ -1,18 +1,31 @@
 ﻿@page "/viewjournal"
 
-<PageTitle>Journal</PageTitle>
+<PageTitle>View Journal Entries</PageTitle>
+
 <AuthorizeView>
     <Authorized>
         @if (User is not null)
         {
-            
-            <h1> @User.FirstName's journals</h1>
+            <MudGrid Spacing="2" Justify="Justify.Center">
+                <MudText Typo="Typo.h3">@User.FirstName's journals</MudText>
+            </MudGrid>
         }
-        
 
         @*PUT THE HTML TO VIEW JOURNALS HERE*@
-     
-     </Authorized>
+        <MudSlider @bind-Value="spacing" Min="0" Max="10" Color="Color.Info" Class="mb-6">Spacing: @spacing.ToString()</MudSlider>
+
+        <MudGrid Spacing="@spacing" Justify="Justify.Center">
+            @foreach (var entries in ListOfJournals)
+            {
+                <JournalCard EntryContent="@entries"></JournalCard>
+            }
+        </MudGrid>
+
+        @code {
+        public int spacing { get; set; } = 2;
+        }
+
+    </Authorized>
     <NotAuthorized>
         <h3 style="text-align:center">
             Whoops...You aren't logged in!

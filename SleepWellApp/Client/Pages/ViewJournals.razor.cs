@@ -12,7 +12,7 @@ namespace SleepWellApp.Client.Pages
         public HttpClient Http { get; set; } = new HttpClient();
         [Inject]
         public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
-        private List<JournalDto> ListOfJournals = new List<JournalDto>();
+        private List<string> ListOfJournals = new List<string>();
         public UserDto? User = null;
 
         protected override async Task OnInitializedAsync()
@@ -21,12 +21,16 @@ namespace SleepWellApp.Client.Pages
             if (UserAuth is not null && UserAuth.IsAuthenticated)
             {
                 User = await Http.GetFromJsonAsync<UserDto>("api/User");
-               // ListOfJournals = await GetJournalInfo();
+                ListOfJournals = await GetJournalEntriesFromApi();
+                // ListOfJournals = await GetJournalInfo();
             }
         }
         //CODE TO VIEW JOURNALS GOES HERE
+        public async Task<List<string>> GetJournalEntriesFromApi()
+        {
+            return await Http.GetFromJsonAsync<List<string>>("api/User/GetJournalEntries");
+        }
 
-        
         /*
          public async Task<List<JournalDto>> GetJournalInfo()
          {

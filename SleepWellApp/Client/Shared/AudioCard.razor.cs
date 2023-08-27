@@ -64,11 +64,18 @@ public partial class AudioCard
 
     public async Task ButtonOnClick(bool liked_toggle)
     {
+        var UserAuth = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
         try
         {
             Liked = liked_toggle;
-            audioDesc = audioID.ToString() + " " + User.Id;
-
+            if (User is null)
+            {
+                audioDesc = "You are not logged in! Login to like a sound.";
+            }
+            else
+            {
+                audioDesc = "Sound succesfully liked, please go to the Liked Audio page to view it!";
+            }
             await Http.PostAsync($"api/audio/{audioID}/like", null);
         }
         catch (Exception ex)
