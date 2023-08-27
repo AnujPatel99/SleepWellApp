@@ -78,7 +78,7 @@ public partial class AudioCard
             }
             else
             {
-                audioDesc = "Sound unliked. Maybe you'll take me back?";
+                audioDesc = "Sound unliked. You clicked unlike on accident right?";
             }
             await Http.PostAsync($"api/audio/{audioID}/like/{Liked}", null);
         }

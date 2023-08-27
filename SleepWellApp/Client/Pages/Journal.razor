@@ -28,53 +28,6 @@
             </MudItem>
         </MudGrid>
 
-
-        <!--AI Image Generation UI-->
-
-        <MudGrid Spacing="@spacing" Justify="Justify.Center">
-
-            <div style="margin-top: 50px;">
-                <MudItem>
-                    <MudText Typo="Typo.h4">Let's Visualize Last Night's Dream!</MudText>
-                </MudItem>
-            </div>
-        </MudGrid>
-
-        <MudGrid Spacing="@spacing" Justify="Justify.Center">
-            <div style="margin-top: 25px;">
-                <MudItem>
-                    <MudButton Disabled="@_processing" OnClick="ProcessSomething" Variant="Variant.Filled" Color="Color.Primary">
-                        @if (_processing)
-                        {
-                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
-                            <MudText Class="ms-2">One Moment Please</MudText>
-                        }
-                        else
-                        {
-                            <MudText>Generate My Dream</MudText>
-                        }
-                    </MudButton>
-                    @code {
-                    private bool _processing = false;
-
-        async Task ProcessSomething()
-        {
-            _processing = true;
-            await Task.Delay(2000);
-            _processing = false;
-        }
-                    }
-                </MudItem>
-            </div>
-        </MudGrid>
-
-        <MudGrid Spacing="@spacing" Justify="Justify.Center">
-            <div style="margin-top: 50px;">
-                <MudItem>
-                    <MudImage Src="images/placeholder.jpg" Width="450" Height="307" Alt="Place Holder" Elevation="30" Class="rounded-lg" />
-                </MudItem>
-            </div>
-        </MudGrid>
     </Authorized>
     <NotAuthorized>
         <h3 style="text-align:center">

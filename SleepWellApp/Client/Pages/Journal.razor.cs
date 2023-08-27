@@ -29,6 +29,10 @@ namespace SleepWellApp.Client.Pages
             if (string.IsNullOrWhiteSpace(journalContent)) {
                 Message = "I'm sure you've dreamt about something! Don't leave us hanging!";
             }
+            else if(journalContent.Length > 500)
+            {
+                Message = "Sorry, you've exceeded the character limit. Try making your entry more concise.";
+            }
             else
             {
                 try
