@@ -45,7 +45,19 @@ public partial class AudioCard
 
     public void OnDurationChanged(string s)
     {
-        durationToPlayFor = Int32.Parse(s);
+        int minute = 60;
+        switch (s)
+        {
+            case "30 Minutes":
+                durationToPlayFor = 30 * minute;
+                break;
+            case "1 Hour":
+                durationToPlayFor = 60 * minute;
+                break;
+            case "2 Hours":
+                durationToPlayFor = 60 * minute;
+                break;
+        }
     }
 
     [Inject]
