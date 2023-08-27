@@ -30,13 +30,5 @@ namespace SleepWellApp.Client.Pages
         {
             return await Http.GetFromJsonAsync<List<string>>("api/User/GetJournalEntries");
         }
-
-        /*
-         public async Task<List<JournalDto>> GetJournalInfo()
-         {
-             return await Http.GetFromJsonAsync<List<JournalDto>>("api/get-journals");
-         }
-        */
-
     }
 }
