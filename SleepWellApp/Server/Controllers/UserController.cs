@@ -122,7 +122,9 @@ public class UserController : Controller
         var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
         if (user is not null)
         {
-            List<string> journalEntries = _context.Journal.Select(i => i.Journal_Content).ToList();
+            // List<string> journalEntries = _context.Journal.Select(i => i.Journal_Content).ToList();
+            var query = $" SELECT Journal_Content FROM Journal WHERE Journal.ApplicationUserId = '{user.Id}'";
+            List<string> journalEntries = await _context.Journal.FromSqlRaw(query).Select(row => row.Journal_Content).ToListAsync();
             return Ok(journalEntries);
         }
         else

@@ -28,7 +28,11 @@ namespace SleepWellApp.Server.Controllers
             var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (user is not null)
             {
-                List<int> likedSounds = _context.LikedSound.Select(i => i.Sound_Id).ToList();
+                /*List<int> likedSounds = _context.LikedSound.Select(i => i.Sound_Id).ToList();
+                return Ok(likedSounds);*/
+
+                var query = $" SELECT Sound_Id FROM LikedSound WHERE LikedSound.ApplicationUserId = '{user.Id}'";
+                List<int> likedSounds = await _context.LikedSound.FromSqlRaw(query).Select(row => row.Sound_Id).ToListAsync();
                 return Ok(likedSounds);
             }
             else
