@@ -71,8 +71,6 @@ namespace SleepWellApp.Client.HttpRepository
             }
         }
 
-
-
         public async Task<Response> AddRole(string role)
         {
             try
@@ -112,9 +110,5 @@ namespace SleepWellApp.Client.HttpRepository
                 };
             }
         }
-        
-       
-
-      
     }
 }
