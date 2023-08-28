@@ -8,11 +8,6 @@ using OpenAI;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-var openAiService = new OpenAIService(new OpenAiOptions()
-{
-    ApiKey = Environment.GetEnvironmentVariable("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")
-});
-
 builder.Services.AddMudServices();
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");

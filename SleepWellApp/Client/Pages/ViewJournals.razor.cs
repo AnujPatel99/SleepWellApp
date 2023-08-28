@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
 using SleepWellApp.Shared;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -59,31 +57,17 @@ namespace SleepWellApp.Client.Pages
 
         private async Task GenerateImage()
         {
-            /*            _processing = true;
-                        if (seed is not null)
-                        {
-                            var predictionId = await GeneratePredictionAsync(seed);
-                            if (!string.IsNullOrEmpty(predictionId))
-                            {
-                                imageURL = await GetPredictionStatusAndOutputAsync(predictionId);
-                            }
-                            _processing = false;
-                        }*/
-            var imageResult = await openAiService.Image.CreateImage(new ImageCreateRequest
+            _processing = true;
+            if (seed is not null)
             {
-                Prompt = "Laser cat eyes",
-                N = 2,
-                Size = StaticValues.ImageStatics.Size.Size256,
-                ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
-                User = "TestUser"
-            });
-
-
-            if (imageResult.Successful)
-            {
-                Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+                var predictionId = await GeneratePredictionAsync(seed);
+                if (!string.IsNullOrEmpty(predictionId))
+                {
+                    imageURL = await GetPredictionStatusAndOutputAsync(predictionId);
+                }
+                _processing = false;
             }
-
+           
         }
         private async Task<string> GeneratePredictionAsync(string prompt)
         {
