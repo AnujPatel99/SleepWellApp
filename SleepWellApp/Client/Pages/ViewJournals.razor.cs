@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using OpenAI;
+using OpenAI.Managers;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using SleepWellApp.Shared;
@@ -56,23 +58,26 @@ namespace SleepWellApp.Client.Pages
             RefreshImage();
             _processing = false;
         }
-       
+
         private async Task GenerateImage()
         {
-            /*            _processing = true;
-                        if (seed is not null)
-                        {
-                            var predictionId = await GeneratePredictionAsync(seed);
-                            if (!string.IsNullOrEmpty(predictionId))
-                            {
-                                imageURL = await GetPredictionStatusAndOutputAsync(predictionId);
-                            }
-                            _processing = false;
-                        }*/
+            _processing = true;
+            /* if (seed is not null)
+             {
+                 var predictionId = await GeneratePredictionAsync(seed);
+                 if (!string.IsNullOrEmpty(predictionId))
+                 {
+                     imageURL = await GetPredictionStatusAndOutputAsync(predictionId);
+                 }
+             }*/
+            var openAiService = new OpenAIService(new OpenAiOptions()
+            {
+                ApiKey = "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"
+            });
             var imageResult = await openAiService.Image.CreateImage(new ImageCreateRequest
             {
-                Prompt = "Laser cat eyes",
-                N = 2,
+                Prompt = seed,
+                N = 1,
                 Size = StaticValues.ImageStatics.Size.Size256,
                 ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
                 User = "TestUser"
@@ -82,7 +87,9 @@ namespace SleepWellApp.Client.Pages
             if (imageResult.Successful)
             {
                 Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+                imageUrl = imageResult.Results[0].Url;
             }
+            _processing = false;
 
         }
         private async Task<string> GeneratePredictionAsync(string prompt)
@@ -99,7 +106,7 @@ namespace SleepWellApp.Client.Pages
             Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", ReplicateAPIToken);
             var predictionJson = JsonSerializer.Serialize(predictionRequest);
             //var apiURL = $"{ApiBaseURL}predictions?Authorization=Token{ReplicateAPIToken}";
-            var response = await Http.PostAsync($"{ApiBaseURL}predictions",new StringContent(predictionJson));
+            var response = await Http.PostAsync($"{ApiBaseURL}predictions", new StringContent(predictionJson));
             response.EnsureSuccessStatusCode();
 
             var responseBody = await response.Content.ReadAsStringAsync();
@@ -117,17 +124,18 @@ namespace SleepWellApp.Client.Pages
         private async Task<string> GetPredictionStatusAndOutputAsync(string predictionId)
         {
             //var apiURL = $"{ApiBaseURL}predictions/{predictionId}?Authorization=Token{ReplicateAPIToken}";
-           
-            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token",ReplicateAPIToken);
+
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", ReplicateAPIToken);
             var response = await Http.GetAsync("${ApiBaseUrl}predictions/{predictionId}");
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
-            var prediction = JsonSerializer.Deserialize<PredictionResponse> (responseBody);
+            var prediction = JsonSerializer.Deserialize<PredictionResponse>(responseBody);
 
             if (prediction.status == "succeeded")
             {
                 return prediction.output;
-            }else
+            }
+            else
             {
                 return null;
             }
