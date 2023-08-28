@@ -21,6 +21,9 @@
             <MudToggleIconButton Toggled="@Liked" ToggledChanged="ButtonOnClick" Class="ml-10" Icon="@Icons.Material.Filled.Favorite" Color="Color.Primary" Title="Unliked"
                                  ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
         </MudCardActions>
+
+
+         
         <div style="margin-bottom: 10px">
             <MudSelect T="string" Label="Duration" ValueChanged="OnDurationChanged" AnchorOrigin="Origin.BottomCenter">
                 <MudSelectItem Value="@("30 Minutes")" />

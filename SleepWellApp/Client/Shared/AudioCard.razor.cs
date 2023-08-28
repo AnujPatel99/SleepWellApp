@@ -19,7 +19,8 @@ public partial class AudioCard
     [Parameter] [Required]
     public string? audioLink { get; set; } // Direct link to audio file
     [Parameter]
-    public bool Liked { get; set; }
+    public bool Liked { get; set; } = false;
+
 
     private bool isVisible;
 
@@ -71,6 +72,7 @@ public partial class AudioCard
         if (UserAuth is not null && UserAuth.IsAuthenticated)
         {
             User = await Http.GetFromJsonAsync<UserDto>("api/User");
+
         }
     }
 
@@ -106,4 +108,7 @@ public partial class AudioCard
         timesTapped++;
         StateHasChanged();
     }
+
+
+   
 }

@@ -35,9 +35,33 @@
     }
 
     <MudTextField @bind-Value="searchText" Label="Search audio by Title" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Sharp.Search" />
+    @if (string.IsNullOrWhiteSpace(searchText))
+    {
+        <MudGrid Class="mt-8" Justify="Justify.Center">
+            @foreach (var audioCard in audioCards)
+            {
+                <AudioCard Liked= "@likedAudioIds.Contains(audioCard.audioID)" audioImage = "@audioCard.audioImage" audioID="@audioCard.audioID" audioTitle="@audioCard.audioTitle" audioDesc="@audioCard.audioDesc" audioLink="@audioCard.audioLink" ></AudioCard>
+            }
+        </MudGrid>
+    }
+    else
+    {
+         <MudGrid Class="mt-8" Justify="Justify.Center">
+        @foreach (var card in filteredAudioCards)
+        {
+           
+                 @if (card.currentPlayingAudio == card.audioID || card.currentPlayingAudio == 0) {
+            <AudioCard  Liked= "@likedAudioIds.Contains(card.audioID)" audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
+                }
+            
+           
+        }
+    </MudGrid>
 
+    }
     @code {
         List<AudioCard> audioCards = new List<AudioCard> {
+           
     new AudioCard { audioImage = "images/pilars.jpg", audioID = 1, audioTitle = "Rainforests Sounds", audioDesc = "This photo is of the Amazon Rainforest", audioLink = "audio/sample.mp3" },
     new AudioCard { audioImage = "images/bird.png", audioID = 2, audioTitle = "Bird Noises", audioDesc = "Bird Noises", audioLink = "audio/bird_noise.mp3" },
     new AudioCard { audioImage = "images/black.jpg", audioID = 3, audioTitle = "Black Noise", audioDesc = "Black Noise", audioLink = "audio/black_noise.mp3" },
@@ -51,13 +75,8 @@
 
         };
     }
-    <MudGrid Class="mt-8" Justify="Justify.Center">
-        @foreach (var card in filteredAudioCards)
-        {
-            @if (card.currentPlayingAudio == card.audioID || card.currentPlayingAudio == 0) {
-            <AudioCard audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
-        }
-        }
-    </MudGrid>
+   
+
+    
 
 </MudContainer>
