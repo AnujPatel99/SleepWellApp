@@ -5,6 +5,7 @@ using SleepWellApp.Server.Data;
 using SleepWellApp.Server.Models;
 using Microsoft.AspNetCore.Identity;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -24,6 +25,11 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+
+//serviceCollection.AddOpenAIService(settings => { settings.ApiKey = "XoboI9y8kM9ZXmjRDcTQT3BlbkFJTy7YnVRs0eP4aA5cV5Wd"; });
+
+
 
 var app = builder.Build();
 
