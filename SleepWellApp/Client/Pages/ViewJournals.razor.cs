@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using OpenAI;
+using OpenAI.Managers;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using SleepWellApp.Shared;
@@ -56,33 +58,38 @@ namespace SleepWellApp.Client.Pages
             RefreshImage();
             _processing = false;
         }
-
+       
         private async Task GenerateImage()
         {
-            /*            _processing = true;
-                        if (seed is not null)
+                        _processing = true;
+                       /* if (seed is not null)
                         {
                             var predictionId = await GeneratePredictionAsync(seed);
                             if (!string.IsNullOrEmpty(predictionId))
                             {
                                 imageURL = await GetPredictionStatusAndOutputAsync(predictionId);
                             }
-                            _processing = false;
                         }*/
+            var openAiService = new OpenAIService(new OpenAiOptions()
+            {
+                ApiKey = "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"
+            });
             var imageResult = await openAiService.Image.CreateImage(new ImageCreateRequest
             {
-                Prompt = "Laser cat eyes",
-                N = 2,
+                Prompt = seed,
+                N = 1,
                 Size = StaticValues.ImageStatics.Size.Size256,
                 ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
                 User = "TestUser"
             });
-
+           
 
             if (imageResult.Successful)
             {
                 Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+                imageUrl = imageResult.Results[0].Url;
             }
+            _processing = false;
 
         }
         private async Task<string> GeneratePredictionAsync(string prompt)
