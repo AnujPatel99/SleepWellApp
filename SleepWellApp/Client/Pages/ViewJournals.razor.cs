@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using SleepWellApp.Shared;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
-
+using System.Text.Json;
 
 namespace SleepWellApp.Client.Pages
 {
@@ -17,7 +18,10 @@ namespace SleepWellApp.Client.Pages
         public UserDto? User = null;
         public int spacing { get; set; } = 2;
         public string? seed { get; set; }
-
+        //public string? userText { get; set; }
+        public string? imageURL { get; set; }
+        private const string ReplicateAPIToken = "r8_Ci8f12uEXCMuBYzWJGIdBvw8vxbQ3Gf2kkiHI";
+        private const string ApiBaseURL = "https://api.replicate.com/v1/";
         protected override async Task OnInitializedAsync()
         {
             var UserAuth = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
@@ -50,5 +54,75 @@ namespace SleepWellApp.Client.Pages
             RefreshImage();
             _processing = false;
         }
+
+        private async Task GenerateImage()
+        {
+            _processing = true;
+            if (seed is not null)
+            {
+                var predictionId = await GeneratePredictionAsync(seed);
+                if (!string.IsNullOrEmpty(predictionId))
+                {
+                    imageURL = await GetPredictionStatusAndOutputAsync(predictionId);
+                }
+                _processing = false;
+            }
+           
+        }
+        private async Task<string> GeneratePredictionAsync(string prompt)
+        {
+
+            var predictionRequest = new
+            {
+                version = "92fa143ccefeed01534d5d6648bd47796ef06847a6bc55c0e5c5b6975f2dcdfb",
+                input = new
+                {
+                    prompt = prompt
+                }
+            };
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", ReplicateAPIToken);
+            var predictionJson = JsonSerializer.Serialize(predictionRequest);
+            //var apiURL = $"{ApiBaseURL}predictions?Authorization=Token{ReplicateAPIToken}";
+            var response = await Http.PostAsync($"{ApiBaseURL}predictions",new StringContent(predictionJson));
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var prediction = JsonSerializer.Deserialize<PredictionResponse>(responseBody);
+            if (prediction != null)
+            {
+                return prediction.id;
+
+            }
+            else
+            {
+                return "Error";
+            }
+        }
+        private async Task<string> GetPredictionStatusAndOutputAsync(string predictionId)
+        {
+            //var apiURL = $"{ApiBaseURL}predictions/{predictionId}?Authorization=Token{ReplicateAPIToken}";
+           
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token",ReplicateAPIToken);
+            var response = await Http.GetAsync("${ApiBaseUrl}predictions/{predictionId}");
+            response.EnsureSuccessStatusCode();
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var prediction = JsonSerializer.Deserialize<PredictionResponse> (responseBody);
+
+            if (prediction.status == "succeeded")
+            {
+                return prediction.output;
+            }else
+            {
+                return null;
+            }
+        }
+        private class PredictionResponse
+        {
+            public string id { get; set; }
+            public string status { get; set; }
+            public string output { get; set; }
+        }
+
+
     }
 }

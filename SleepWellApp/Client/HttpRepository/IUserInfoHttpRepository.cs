@@ -10,7 +10,8 @@ namespace SleepWellApp.Client.HttpRepository
         Task<DataResponse<List<UserDto>>> GetUsers();
         Task<DataResponse<List<RoleDto>>> GetRoles(string id);
         Task<Response> AddRole(string role);
-        
 
+        //AI API METHODS
+    
     }
 }

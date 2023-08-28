@@ -12,10 +12,13 @@ namespace SleepWellApp.Client.HttpRepository
     public class UserInfoHttpRepository : IUserInfoHttpRepository
     {
         public readonly HttpClient _httpClient;
+        private const string ReplicateAPIToken = "r8_Ci8f12uEXCMuBYzWJGIdBvw8vxbQ3Gf2kkiHI";
+        private const string ApiBaseURL = "https://api.replicate.com/v1/predictions/";
         public UserInfoHttpRepository(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
+
         public async Task<DataResponse<List<UserDto>>> GetUsers()
         {
             try
@@ -68,6 +71,8 @@ namespace SleepWellApp.Client.HttpRepository
             }
         }
 
+
+
         public async Task<Response> AddRole(string role)
         {
             try
@@ -107,5 +112,9 @@ namespace SleepWellApp.Client.HttpRepository
                 };
             }
         }
+        
+       
+
+      
     }
 }
