@@ -13,7 +13,6 @@ namespace SleepWellApp.Client.Pages
 {
     public partial class ViewJournals
     {
-
         [Inject]
         public HttpClient Http { get; set; } = new HttpClient();
         [Inject]
@@ -23,6 +22,7 @@ namespace SleepWellApp.Client.Pages
         public int spacing { get; set; } = 2;
         public string? seed { get; set; }
         public string? imageURL { get; set; }
+        public string? interpVal { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -47,13 +47,13 @@ namespace SleepWellApp.Client.Pages
         [Inject]
         public IConfiguration? Configuration { get; set; }
 
-        private async Task GenerateImage()
+        private async Task GenerateImageAndInterpretation()
         {
             _processing = true;
             var apiKey = Configuration["OpenAIServiceOptions:ApiKey"];
             var openAiService = new OpenAIService(new OpenAiOptions()
             {
-                ApiKey = ""
+                ApiKey = "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"
             });
             var imageResult = await openAiService.Image.CreateImage(new ImageCreateRequest
             {
@@ -85,17 +85,6 @@ namespace SleepWellApp.Client.Pages
                 imageUrl = imageResult.Results[0].Url;
             }
             _processing = false;
-
-        }
-
-        public string? interpVal { get; set; }
-        public async Task GenerateInterpretation()
-        {
-            var openAiService = new OpenAIService(new OpenAiOptions()
-            {
-                ApiKey = ""
-            });
-            
 
         }
 
