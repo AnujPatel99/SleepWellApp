@@ -3,12 +3,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using SleepWellApp.Client;
 using MudBlazor.Services;
-using OpenAI.Managers;
-using OpenAI;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
-
-
 
 builder.Services.AddMudServices();
 builder.RootComponents.Add<App>("#app");

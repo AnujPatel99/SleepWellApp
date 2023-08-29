@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HPCTech2023FavoriteMovies.Client.Test;
+namespace SleepWellApp.Client.Test;
 
 public class Tests
 {
@@ -27,15 +27,15 @@ public class Tests
     "\"lastName\": \"Patel\" }";
 
 
-        mockHttp.When("https://localhost:7109/api/User")
+        mockHttp.When("https://localhost:7109/api/get-users/")
             .Respond("application/json", testUserResponse);
 
         var client = mockHttp.ToHttpClient();
         client.BaseAddress = new Uri("https://localhost:7109/");
-        var userMoviesHttpRespository = new UserInfoHttpRepository(client);
+        var userInfoHttpRepository = new UserInfoHttpRepository(client);
 
         // Act
-        var response = await userMoviesHttpRespository.GetUsers();
+        var response = await userInfoHttpRepository.GetUsers();
         var userList = response.Data;
 
 

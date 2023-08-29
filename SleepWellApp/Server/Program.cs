@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var apiKey = builder.Configuration["OpenAIServiceOptions:ApiKey"];
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -32,6 +33,7 @@ builder.Services.AddRazorPages();
 
 
 var app = builder.Build();
+app.MapGet("/viewjournal", () => apiKey);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

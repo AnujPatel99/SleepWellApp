@@ -60,6 +60,18 @@
             </div>
         </MudGrid>
 
+        <MudGrid Spacing="2" Justify="Justify.Center">
+            <MudItem>
+                <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="450px">
+                    <h3>Dream Interpretation</h3><br />
+                    <MudTextField @bind-Value="@interpVal" Lines="10" Label="Read Only" ReadOnly="true" Variant="Variant.Text" />
+                </MudPaper>
+            </MudItem>
+            <MudItem>
+            </MudItem>
+        </MudGrid>
+
+
     </Authorized>
     <NotAuthorized>
         <h3 style="text-align:center">
@@ -69,10 +81,3 @@
     </NotAuthorized>
 </AuthorizeView>
 
-
-
-
-
-@code {
-
-}
