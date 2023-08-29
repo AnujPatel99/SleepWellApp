@@ -20,7 +20,9 @@
                 <JournalCard EntryContent="@entries"></JournalCard>
             }
         </MudGrid>
+
         <MudGrid Spacing="@spacing" Justify="Justify.Center">
+
             <div style="margin-top: 50px;">
                 <MudItem>
                     <MudText Typo="Typo.h4">Let's Visualize Last Night's Dream!</MudText>
@@ -61,7 +63,7 @@
                 <MudText Typo="Typo.h4">OpenAI Dream Interpretation<br /><br /></MudText>
                 <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="450px">
                     <h3 style="text-align: center">Dream Interpretation</h3><br />
-                    <MudTextField style="text-align: center" @bind-Value="@interpVal" Lines="10" Label="Enter dream above & click Generate" ReadOnly="true" Variant="Variant.Text" />
+                    <MudTextField @bind-Value="@interpVal" Lines="10" Label="Enter dream above and click Generate My Dream" ReadOnly="true" Variant="Variant.Text" />
                 </MudPaper>
             </MudItem>
             <MudItem>

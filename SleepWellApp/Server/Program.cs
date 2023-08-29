@@ -26,7 +26,7 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+builder.Services.AddSwaggerGen();
 
 //serviceCollection.AddOpenAIService(settings => { settings.ApiKey = "XoboI9y8kM9ZXmjRDcTQT3BlbkFJTy7YnVRs0eP4aA5cV5Wd"; });
 
@@ -40,6 +40,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
