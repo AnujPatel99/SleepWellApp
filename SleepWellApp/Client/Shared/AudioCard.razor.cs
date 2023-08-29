@@ -21,6 +21,8 @@ public partial class AudioCard
     [Parameter]
     public bool Liked { get; set; } = false;
 
+    private readonly static Random rnd = new Random();
+    private readonly int n = rnd.Next(1, 6);
 
     private bool isVisible;
 
@@ -108,7 +110,4 @@ public partial class AudioCard
         timesTapped++;
         StateHasChanged();
     }
-
-
-   
 }

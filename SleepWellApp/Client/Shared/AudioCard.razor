@@ -9,7 +9,7 @@
                 <MudText Typo="Typo.body2">SleepWell Library</MudText>
             </CardHeaderContent>
             <CardHeaderActions>
-                <MudIconButton Icon="@Icons.Material.Filled.DarkMode" OnClick="OpenOverlay" Color="Color.Default" />
+                <MudRating SelectedValue="@n" />
             </CardHeaderActions>
         </MudCardHeader>
         <MudCardMedia Image=@audioImage Height="250" />
@@ -22,8 +22,6 @@
                                  ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Secondary" ToggledTitle="Liked" />
         </MudCardActions>
 
-
-         
         <div style="margin-bottom: 10px">
             <MudSelect T="string" Label="Duration" ValueChanged="OnDurationChanged" AnchorOrigin="Origin.BottomCenter">
                 <MudSelectItem Value="@("30 Minutes")" />
