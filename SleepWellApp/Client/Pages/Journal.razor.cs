@@ -43,6 +43,7 @@ namespace SleepWellApp.Client.Pages
                     if (response.IsSuccessStatusCode)
                     {
                         Message = "Journal entry successfully logged!";
+                        journalContent = "";
                     }
                     else
                     {

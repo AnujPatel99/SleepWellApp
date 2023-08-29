@@ -21,8 +21,6 @@
             }
         </MudGrid>
 
-        <!--AI Image Generation UI-->
-
         <MudGrid Spacing="@spacing" Justify="Justify.Center">
 
             <div style="margin-top: 50px;">
@@ -37,7 +35,7 @@
             <div style="margin-top: 25px;">
                 <MudItem>
                     @*Change "ProcessSomething to GenerateImage to test AI image generation*@
-                    <MudButton Disabled="@_processing" OnClick="GenerateImage" Variant="Variant.Filled" Color="Color.Primary">
+                    <MudButton Disabled="@_processing" OnClick="GenerateImageAndInterpretation" Variant="Variant.Filled" Color="Color.Primary">
                         @if (_processing)
                         {
                             <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
@@ -62,17 +60,17 @@
 
         <MudGrid Spacing="2" Justify="Justify.Center">
             <MudItem>
+                <MudText Typo="Typo.h4">OpenAI Dream Interpretation<br /><br /></MudText>
                 <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="450px">
-                    <h3>Dream Interpretation</h3><br />
-                    <MudTextField @bind-Value="@interpVal" Lines="10" Label="Read Only" ReadOnly="true" Variant="Variant.Text" />
+                    <h3 style="text-align: center">Dream Interpretation</h3><br />
+                    <MudTextField @bind-Value="@interpVal" Lines="10" Label="Enter dream above and click Generate My Dream" ReadOnly="true" Variant="Variant.Text" />
                 </MudPaper>
             </MudItem>
             <MudItem>
             </MudItem>
         </MudGrid>
-
-
     </Authorized>
+
     <NotAuthorized>
         <h3 style="text-align:center">
             Whoops...You aren't logged in!
