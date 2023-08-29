@@ -109,8 +109,11 @@ public class UserController : Controller
             Journal_Content = journalDto.JournalContent
         };
 
+        var entryToRemove = _context.Users.Include(u => u.Journal).FirstOrDefault(u => u.Id == user.Id).Journal.FirstOrDefault(s => s.Journal_Content == journalDto.JournalContent);
+
         //Adding and saving the journal entries to the database
         user.Journal.Add(journalEntry);
+        //user.Journal.Remove(entryToRemove);
         await _context.SaveChangesAsync();
 
         return Ok();
