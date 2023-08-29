@@ -21,10 +21,10 @@ public class Tests
         // Mock api/User end point which returns UserDto
         // also mock the OMDB api returns for individual user
         string testUserResponse =
-    "[{ \"id\": \"041ef466-6ab1-47de-bdb4-fbc0beaf7c51\", " +
-    "\"userName\": \"elgomatim@gmail.com\", " +
-    "\"firstName\": \"Malik\", " +
-    "\"lastName\": \"Elgomati\" }]";
+    "[{ \"id\": \"4aedd1be-f5fa-4350-bde9-a5922922fe0e\", " +
+    "\"userName\": \"test@test.com\", " +
+    "\"firstName\": \"Anuj\", " +
+    "\"lastName\": \"Patel\" }]";
 
         //https://localhost:7109/api/get-users
         mockHttp.When("https://localhost:7109/api/get-users")
