@@ -1,4 +1,5 @@
-﻿@page "/viewjournal"
+﻿@using MudBlazor
+@page "/viewjournal"
 
 <PageTitle>View Journal Entries</PageTitle>
 
@@ -66,8 +67,8 @@
 
             <MudGrid Spacing="2" Justify="Justify.Center">
                 <MudItem>
-                    <MudText Typo="Typo.h4">OpenAI Dream Interpretation<br /><br /></MudText>
-                    <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="450px">
+                    <MudText Style="text-align:center;" Typo="Typo.h4" >OpenAI Dream Interpretation<br /><br /></MudText>
+                    <MudPaper Class="pa-16 ma-2" Square="true" Height="480px" Width="550px">
                         <h3 style="text-align: center">Dream Interpretation</h3><br />
                         <MudTextField @bind-Value="@interpVal" Lines="10" Label="Enter dream above and click Generate My Dream" ReadOnly="true" Variant="Variant.Text" />
                     </MudPaper>
