@@ -4,6 +4,6 @@
         <h3>Journal Entry <br />@dateNow</h3><br />
         <MudTextField @bind-Value="@EntryContent" Lines="5" Label="Read Only" ReadOnly="true" Variant="Variant.Text" /><br />
         <MudButton Class="mt-3 mb-5 align-center" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ModelTraining" Color="Color.Primary" @onclick="SetPrompt">Use as Prompt</MudButton>
-        <MudButton Class="mt-3 mb-5 align-center" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.DeleteSweep" Color="Color.Primary" @onclick="DeleteJournal">Delete</MudButton>
+        <MudButton Class="mt-3 mb-5 align-center" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.DeleteSweep" Color="Color.Secondary" @onclick="DeleteJournal">Delete</MudButton>
     </MudPaper>
 </MudItem>
