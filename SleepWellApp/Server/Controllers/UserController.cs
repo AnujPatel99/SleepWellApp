@@ -128,6 +128,31 @@ public class UserController : Controller
         return Ok();
     }
 
+    [HttpPost]
+    [Route("api/User/DeleteJournalEntry")]
+    public async Task<IActionResult> DeleteJournalEntry([FromBody] JournalDto journalDto)
+    {
+        var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        if (user == null)
+        {
+            return NotFound();
+
+        }
+        //Creating a new journal entry entity and populate the properties 
+
+        var journalEntry = new JournalEntry
+        {
+            Journal_Content = journalDto.JournalContent
+        };
+
+        var entryToRemove = _context.Users.Include(u => u.Journal).FirstOrDefault(u => u.Id == user.Id).Journal.FirstOrDefault(s => s.Journal_Content == journalDto.JournalContent);
+        user.Journal.Remove(entryToRemove);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+
     [HttpGet("api/User/GetJournalEntries")]
     public async Task<ActionResult<List<string>>> GetJournalEntries()
     {

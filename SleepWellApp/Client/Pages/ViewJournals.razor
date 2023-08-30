@@ -9,64 +9,73 @@
             <MudGrid Spacing="2" Justify="Justify.Center">
                 <MudText Typo="Typo.h3">@User.FirstName's journals</MudText>
             </MudGrid>
+        }<br /><br />
+        @if (ListOfJournals.Count() == 0)
+        {
+            <MudGrid Spacing="2" Justify="Justify.Center">
+                <h3 style="text-align:center">
+                    You don't have any Saved Journal Entries. Add one to see it here!
+                    <img style="display: block" src="images/shocked_monkey.jpg" alt="Shocked Monkey" width="650" height="400">
+                </h3>
+            </MudGrid>
         }
+        else
+        {
+            <MudGrid Spacing="@spacing" Justify="Justify.Center">
+                @foreach (var entries in ListOfJournals)
+                {
+                    <JournalCard EntryContent="@entries" OnPromptSet="UpdateSeed"></JournalCard>
+                }
+            </MudGrid>
 
-        @*PUT THE HTML TO VIEW JOURNALS HERE*@
-        <br />
-        <br />
-        <MudGrid Spacing="@spacing" Justify="Justify.Center">
-            @foreach (var entries in ListOfJournals)
-            {
-                <JournalCard EntryContent="@entries"></JournalCard>
-            }
-        </MudGrid>
-        <MudGrid Spacing="@spacing" Justify="Justify.Center">
-            <div style="margin-top: 50px;">
+            <MudGrid Spacing="@spacing" Justify="Justify.Center">
+                <div style="margin-top: 50px;">
+                    <MudItem>
+                        <MudText Typo="Typo.h4">Let's Visualize Last Night's Dream!</MudText>
+                        <MudTextField @bind-Value="seed" T="string" Counter="500" Lines="5" Immediate="true" Label="Give us a description of your dream:" Variant="Variant.Text" />
+                    </MudItem>
+                </div>
+            </MudGrid>
+
+            <MudGrid Spacing="@spacing" Justify="Justify.Center">
+                <div style="margin-top: 25px;">
+                    <MudItem>
+                        @*Change "ProcessSomething to GenerateImage to test AI image generation*@
+                        <MudButton Disabled="@_processing" OnClick="GenerateImageAndInterpretation" Variant="Variant.Filled" Color="Color.Primary">
+                            @if (_processing)
+                            {
+                                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                                <MudText Class="ms-2">One Moment Please</MudText>
+                            }
+                            else
+                            {
+                                <MudText>Generate My Dream</MudText>
+                            }
+                        </MudButton>
+                    </MudItem>
+                </div>
+            </MudGrid>
+
+            <MudGrid Spacing="@spacing" Justify="Justify.Center">
+                <div style="margin-top: 50px;">
+                    <MudItem>
+                        <MudImage Src="@imageUrl" Width="800" Height="500" Alt="Place Holder" Elevation="30" Class="rounded-lg" />
+                    </MudItem>
+                </div>
+            </MudGrid>
+
+            <MudGrid Spacing="2" Justify="Justify.Center">
                 <MudItem>
-                    <MudText Typo="Typo.h4">Let's Visualize Last Night's Dream!</MudText>
-                    <MudTextField @bind-Value="seed" T="string" Counter="500" Lines="5" Immediate="true" Label="Give us a description of your dream:" Variant="Variant.Text" />
+                    <MudText Typo="Typo.h4">OpenAI Dream Interpretation<br /><br /></MudText>
+                    <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="450px">
+                        <h3 style="text-align: center">Dream Interpretation</h3><br />
+                        <MudTextField @bind-Value="@interpVal" Lines="10" Label="Enter dream above and click Generate My Dream" ReadOnly="true" Variant="Variant.Text" />
+                    </MudPaper>
                 </MudItem>
-            </div>
-        </MudGrid>
-
-        <MudGrid Spacing="@spacing" Justify="Justify.Center">
-            <div style="margin-top: 25px;">
                 <MudItem>
-                    @*Change "ProcessSomething to GenerateImage to test AI image generation*@
-                    <MudButton Disabled="@_processing" OnClick="GenerateImageAndInterpretation" Variant="Variant.Filled" Color="Color.Primary">
-                        @if (_processing)
-                        {
-                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
-                            <MudText Class="ms-2">One Moment Please</MudText>
-                        }
-                        else
-                        {
-                            <MudText>Generate My Dream</MudText>
-                        }
-                    </MudButton>
                 </MudItem>
-            </div>
-        </MudGrid>
-
-        <MudGrid Spacing="@spacing" Justify="Justify.Center">
-            <div style="margin-top: 50px;">
-                <MudItem>
-                    <MudImage Src="@imageUrl" Width="800" Height="500" Alt="Place Holder" Elevation="30" Class="rounded-lg" />
-                </MudItem>
-            </div>
-        </MudGrid>
-
-        <MudGrid Spacing="2" Justify="Justify.Center">
-            <MudItem>
-                <MudText Typo="Typo.h4">OpenAI Dream Interpretation<br /><br /></MudText>
-                <MudPaper Class="pa-16 ma-2" Square="true" Height="380px" Width="450px">
-                    <h3 style="text-align: center">Dream Interpretation</h3><br />
-                    <MudTextField @bind-Value="@interpVal" Lines="10" Label="Enter dream above and click Generate My Dream" ReadOnly="true" Variant="Variant.Text" />
-                </MudPaper>
-            </MudItem>
-            <MudItem>
-            </MudItem>
-        </MudGrid>
+            </MudGrid>
+        }
     </Authorized>
 
     <NotAuthorized>

@@ -4,7 +4,6 @@
 
 <MudContainer>
     <MudImage Src="images/Logo.png" Alt="OurLogo" Elevation="0" Class="rounded-lg" style="padding-top: 0px" />
-
     <style>
         .rounded-lg {
             display: block;
@@ -21,47 +20,36 @@
             align-items: center;
         }
     </style>
-    <MudText Typo="Typo.h3" Align="Align.Center" GutBottom="trutere">Audio Library</MudText>
-        <br />
+    <MudText Typo="Typo.h3" Align="Align.Center" GutBottom="trutere">Audio Library</MudText><br />
 
     <MudText Align="Align.Center">Welcome to SleepWell.NET, an expansive audio library that provides a variety of sounds to help you fall and stay asleep.</MudText>
-    <br />
-        <br />
-
-
-    @if (User is not null)
-    {
-        <h1>Hello @User.FirstName</h1>
-    }
-
+    <br /><br />
     <MudTextField @bind-Value="searchText" Label="Search audio by Title" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Sharp.Search" />
     @if (string.IsNullOrWhiteSpace(searchText))
     {
         <MudGrid Class="mt-8" Justify="Justify.Center">
             @foreach (var audioCard in audioCards)
             {
-                <AudioCard Liked= "@likedAudioIds.Contains(audioCard.audioID)" audioImage = "@audioCard.audioImage" audioID="@audioCard.audioID" audioTitle="@audioCard.audioTitle" audioDesc="@audioCard.audioDesc" audioLink="@audioCard.audioLink" ></AudioCard>
+                <AudioCard Liked="@likedAudioIds.Contains(audioCard.audioID)" audioImage="@audioCard.audioImage" audioID="@audioCard.audioID" audioTitle="@audioCard.audioTitle" audioDesc="@audioCard.audioDesc" audioLink="@audioCard.audioLink"></AudioCard>
             }
         </MudGrid>
     }
     else
     {
-         <MudGrid Class="mt-8" Justify="Justify.Center">
-        @foreach (var card in filteredAudioCards)
-        {
-           
-                 @if (card.currentPlayingAudio == card.audioID || card.currentPlayingAudio == 0) {
-            <AudioCard  Liked= "@likedAudioIds.Contains(card.audioID)" audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
+        <MudGrid Class="mt-8" Justify="Justify.Center">
+            @foreach (var card in filteredAudioCards)
+            {
+                @if (card.currentPlayingAudio == card.audioID || card.currentPlayingAudio == 0)
+                {
+                    <AudioCard Liked="@likedAudioIds.Contains(card.audioID)" audioImage="@card.audioImage" audioID="@card.audioID" audioTitle="@card.audioTitle" audioDesc="@card.audioDesc" audioLink="@card.audioLink"> </AudioCard>
                 }
-            
-           
-        }
-    </MudGrid>
+            }
+        </MudGrid>
 
     }
     @code {
-        List<AudioCard> audioCards = new List<AudioCard> {
-           
+    List<AudioCard> audioCards = new List<AudioCard> {
+
     new AudioCard { audioImage = "images/ar.jpg", audioID = 1, audioTitle = "Rainforests Sounds", audioDesc = "Amazon Rainforest", audioLink = "audio/rainforest.mp3" },
     new AudioCard { audioImage = "images/bird.png", audioID = 2, audioTitle = "Bird Noises", audioDesc = "Bird Noises", audioLink = "audio/bird_noise.mp3" },
     new AudioCard { audioImage = "images/black.jpg", audioID = 3, audioTitle = "Black Noise", audioDesc = "Black Noise", audioLink = "audio/black_noise.mp3" },
@@ -73,10 +61,6 @@
     new AudioCard { audioImage = "images/summerNight.jpg", audioID = 9, audioTitle = "Summer Night Noise", audioDesc = "Hot Summer Nights", audioLink = "audio/summerNight_noise.mp3" },
     new AudioCard { audioImage = "images/wave.jpg", audioID = 10, audioTitle = "Waves Noise", audioDesc = "Waves crashing on the beach", audioLink = "audio/wave_noise.mp3" }
 
-        };
+    };
     }
-   
-
-    
-
 </MudContainer>

@@ -24,6 +24,11 @@ namespace SleepWellApp.Client.Pages
         public string? imageURL { get; set; }
         public string? interpVal { get; set; }
 
+        private async Task UpdateSeed(string newSeed)
+        {
+            seed = newSeed;
+        }
+
         protected override async Task OnInitializedAsync()
         {
             var UserAuth = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
@@ -53,7 +58,7 @@ namespace SleepWellApp.Client.Pages
             var apiKey = Configuration["OpenAIServiceOptions:ApiKey"];
             var openAiService = new OpenAIService(new OpenAiOptions()
             {
-                ApiKey = "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"
+                ApiKey = ""
             });
             var imageResult = await openAiService.Image.CreateImage(new ImageCreateRequest
             {
